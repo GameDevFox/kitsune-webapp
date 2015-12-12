@@ -1,0 +1,10 @@
+{
+  "name": "kitsune-webapp",
+  "description": "A web client for the Kistune project",
+  "main": "",
+  "authors": [
+    "Edward Nicholes Jr."
+  ],
+  "license": "GPL-2.0",
+  "homepage": "https://github.com/Prince86EKNJ/kitsune-webapp"
+}
