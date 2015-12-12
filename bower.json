@@ -6,5 +6,8 @@
     "Edward Nicholes Jr."
   ],
   "license": "GPL-2.0",
-  "homepage": "https://github.com/Prince86EKNJ/kitsune-webapp"
+  "homepage": "https://github.com/Prince86EKNJ/kitsune-webapp",
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
 }
