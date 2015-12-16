@@ -19,7 +19,15 @@
   "devDependencies": {
     "browser-sync": "^2.10.0",
     "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
+    "gulp-cached": "^1.1.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-jshint": "^2.0.0",
     "gulp-load-plugins": "^1.1.0",
-    "gulp-sass": "^2.1.1"
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.1.1",
+    "gulp-sequence": "^0.4.1",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0"
   }
 }

@@ -8,6 +8,8 @@
   "license": "GPL-2.0",
   "homepage": "https://github.com/Prince86EKNJ/kitsune-webapp",
   "dependencies": {
-    "bootstrap": "~3.3.6"
+    "bootstrap": "~3.3.6",
+    "lodash": "~3.10.1",
+    "vue": "~1.0.11"
   }
 }
