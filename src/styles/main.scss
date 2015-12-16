@@ -1,3 +1,20 @@
-.container {
-		   border: 1px solid black;
+/* .container { */
+/* 		   border: 1px solid black; */
+/* } */
+
+.ki-nodeView .name {
+	  color: green;
+	  font-weight: bold;
+	  display: inline;
+	  padding-right: 10px
+}
+
+.ki-nodeView .head {
+	  color: red;
+	  font-style: italic;
+}
+
+.ki-nodeView .tail {
+	  color: blue;
+	  font-style: italic;
 }

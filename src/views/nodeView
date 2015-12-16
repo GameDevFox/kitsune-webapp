@@ -1,0 +1,6 @@
+<div class="well well-sm">
+	 <div class="node">{{ node }}</div>
+	 <div v-for="name in names" class="name">{{ name }}</div>
+	 <div v-for="head in heads" class="head">{{ head }}</div>
+	 <div v-for="tail in tails" class="tail">{{ tail }}</div>
+</div>
