@@ -2,19 +2,42 @@
 /* 		   border: 1px solid black; */
 /* } */
 
-.ki-nodeView .name {
-	  color: green;
-	  font-weight: bold;
-	  display: inline;
-	  padding-right: 10px
-}
+.ki-nodeView {
 
-.ki-nodeView .head {
-	  color: red;
-	  font-style: italic;
-}
+	.ids {
+		font-size: larger;
+	}
 
-.ki-nodeView .tail {
-	  color: blue;
-	  font-style: italic;
+	.name {
+		margin-right: 5px;
+	}
+	
+	.types {
+		font-weight: bold;
+	}
+	
+	.type {
+		color: orange;
+		display: inline;
+		padding-right: 10px
+	}
+
+	.type:last-child {
+		padding-right: 0px;
+	}
+	
+	.head {
+		color: red;
+		font-style: italic;
+	}
+
+	.tail {
+		color: blue;
+		font-style: italic;
+	}
+
+	.string {
+		color: green;
+		font-weight: bold;
+	}
 }
