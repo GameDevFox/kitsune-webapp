@@ -12,13 +12,13 @@ var g = gulpLoadPlugins({
 
 var browserSync;
 
-gulp.task("default", function(done) {
-	g.sequence("build" ,"watch")(done);
+gulp.task("default", ["watch"]);
+
+gulp.task("build", function(done) {
+	g.sequence(["build-scripts", "build-styles", "build-views"])(done);
 });
 
-gulp.task("build", ["build-scripts", "build-styles", "build-views"]);
-
-gulp.task("build-scripts", function() {
+gulp.task("build-scripts", function(done) {
 
 	var pipeline = gulp.src("src/scripts/*.js")
 			.pipe(g.cached("build"))
@@ -34,9 +34,11 @@ gulp.task("build-scripts", function() {
 
 	if(browserSync)
 		pipeline.pipe(browserSync.reload());
+
+	done();
 });
 
-gulp.task("build-styles", function() {
+gulp.task("build-styles", function(done) {
 	var pipeline = gulp.src("src/styles/*.scss")
 		.pipe(g.plumber())
 		.pipe(g.sass())
@@ -44,9 +46,11 @@ gulp.task("build-styles", function() {
 
 	if(browserSync)
 		pipeline.pipe(browserSync.reload({ stream: true }));
+
+	done();
 });
 
-gulp.task("build-views", function() {
+gulp.task("build-views", function(done) {
 	var pipeline = gulp.src("src/views/*")
 		.pipe(g.plumber())
 		.pipe(g.fc2json("views.json"))
@@ -54,6 +58,8 @@ gulp.task("build-views", function() {
 
 	if(browserSync)
 		pipeline.pipe(browserSync.reload());
+
+	done();
 });
 
 gulp.task("serve", function() {
@@ -69,7 +75,11 @@ gulp.task("reload", function() {
 	browserSync.reload();
 });
 
-gulp.task("watch", ["serve"], function() {
+gulp.task("watch", function(done) {
+	g.sequence("build", ["serve", "run-watch"])(done);
+});
+
+gulp.task("run-watch", function() {
 	gulp.watch("app/index.html", ["reload"]);
 	gulp.watch("src/scripts/*.js", ["build-scripts"]);
 	gulp.watch("src/styles/*.scss", ["build-styles"]);
