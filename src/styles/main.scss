@@ -1,10 +1,9 @@
-/* .container { */
-/* 	border: 1px solid black; */
-/* } */
+.graphContainer {
+	border: 1px solid black;
+	margin-top: 5px;
+	margin-bottom: 20px;
 
-.graph {
-	width: 800px;
-	height: 600px;
+	.graph { height: 600px; }
 }
 
 .ki-nodeView {
@@ -16,11 +15,11 @@
 	.name {
 		margin-right: 5px;
 	}
-	
+
 	.types {
 		font-weight: bold;
 	}
-	
+
 	.type {
 		color: orange;
 		display: inline;
@@ -30,7 +29,7 @@
 	.type:last-child {
 		padding-right: 0px;
 	}
-	
+
 	.head {
 		color: red;
 		font-style: italic;

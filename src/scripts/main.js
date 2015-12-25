@@ -11,6 +11,8 @@ let loadViewData = $.get("/data/views.json").then((data) => {
 	views = data;
 });
 
+let cy;
+
 Promise.all([ready, loadViewData]).then(() => {
 	console.log("Hello Kitsune Webapp");
 
@@ -20,8 +22,9 @@ Promise.all([ready, loadViewData]).then(() => {
 
 	Promise.all([
 		$.get(`${serviceUrl}/nodes`),
-		$.get(`${serviceUrl}/rels`)
-	]).then(([nodes, rels]) => {
+		$.get(`${serviceUrl}/rels`),
+		$.get(`${serviceUrl}/strings`)
+	]).then(([nodes, rels, strings]) => {
 		var cNodes = _.map(nodes, (node) => {
 			return {
 				data: {
@@ -42,7 +45,7 @@ Promise.all([ready, loadViewData]).then(() => {
 			return cEdge;
 		}).flatten().value();
 
-		cytoscape({
+		cy = cytoscape({
 			container: graphBox,
 			elements: {
 				nodes: cNodes,
@@ -58,8 +61,9 @@ Promise.all([ready, loadViewData]).then(() => {
 				{
 					selector: "edge",
 					style: {
-						"width": "3px",
+						"width": "10px",
 						"target-arrow-shape": "triangle",
+						"target-arrow-color": "data(color)",
 						"line-color": "data(color)"
 					}
 				}
@@ -68,6 +72,15 @@ Promise.all([ready, loadViewData]).then(() => {
 				name: "cose"
 			},
 			hideEdgesOnViewport: false,
+		});
+
+		_.each(rels, function(rel) {
+			cy.nodes("#"+rel.id).style("background-color", "#00ff00");
+		});
+
+		_.each(strings, function(string) {
+			var node = cy.nodes("#"+string.id)
+			node.style("background-color", "#ffff00").data({ label: string.string });
 		});
 	});
 
