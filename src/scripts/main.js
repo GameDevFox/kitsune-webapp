@@ -22,9 +22,9 @@ Promise.all([ready, loadViewData]).then(() => {
 
 	Promise.all([
 		$.get(`${serviceUrl}/nodes`),
-		$.get(`${serviceUrl}/rels`),
+		$.get(`${serviceUrl}/edges`),
 		$.get(`${serviceUrl}/strings`)
-	]).then(([nodes, rels, strings]) => {
+	]).then(([nodes, edges, strings]) => {
 		var cNodes = _.map(nodes, (node) => {
 			return {
 				data: {
@@ -34,12 +34,12 @@ Promise.all([ready, loadViewData]).then(() => {
 			}
 		});
 
-		var cEdges = _(rels).map((rel) => {
+		var cEdges = _(edges).map((edge) => {
 			var head = {
-				data: { id: "HEAD"+rel.id, source: rel.head, target: rel.id, color: "red" }
+				data: { id: "HEAD"+edge.id, source: edge.head, target: edge.id, color: "red" }
 			};
 			var tail = {
-				data: { id: "tail"+rel.id, source: rel.id, target: rel.tail, color: "blue" }
+				data: { id: "tail"+edge.id, source: edge.id, target: edge.tail, color: "blue" }
 			};
 			var cEdge = [head, tail];
 			return cEdge;
@@ -71,16 +71,21 @@ Promise.all([ready, loadViewData]).then(() => {
 			layout: {
 				name: "cose"
 			},
+
+			minZoom: 0.1,
+			maxZoom: 3,
+			wheelSensitivity: 0.1,
+
 			hideEdgesOnViewport: false,
 		});
 
-		_.each(rels, function(rel) {
-			cy.nodes("#"+rel.id).style("background-color", "#00ff00");
+		_.each(edges, function(edge) {
+			cy.nodes("#"+edge.id).style("background-color", "#00ff00");
 		});
 
 		_.each(strings, function(string) {
 			var node = cy.nodes("#"+string.id)
-			node.style("background-color", "#ffff00").data({ label: string.string });
+			node.style("background-color", "#ffff00").data({ label: _.trunc(string.string) });
 		});
 	});
 
