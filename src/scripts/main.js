@@ -29,7 +29,7 @@ Promise.all([ready, loadViewData]).then(() => {
 			return {
 				data: {
 					id: node,
-					label: node.substring(0, 4)
+					label: node.substring(0, 7)
 				}
 			}
 		});
