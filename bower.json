@@ -6,7 +6,7 @@
     "Edward Nicholes Jr."
   ],
   "license": "GPL-2.0",
-  "homepage": "https://github.com/Prince86EKNJ/kitsune-webapp",
+  "homepage": "https://github.com/GameDevFox/kitsune-webapp",
   "dependencies": {
     "bootstrap": "~3.3.6",
     "lodash": "~3.10.1",
