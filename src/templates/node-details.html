@@ -1,0 +1,15 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+       <node-name node-id="$ctrl.nodeId"></node-name><span>{{ $ctrl.nodeId }}</span>
+  </div>
+</md-toolbar>
+
+Types:
+<div ng-repeat="type in $ctrl.nodeDesc">
+  <node-button id="type"></node-button>
+</div>
+
+<node-group nf-if="$ctrl.nodeDesc | contains:'39bedcfba59c016590ddd53ddc7d89268b5340fd'" id="$ctrl.nodeId">
+  [{{ $gCtrl }}]
+  <div ng-repeat="id in $ctrl.group">{{ id }}</div>
+</node-group>

@@ -1,6 +1,6 @@
 "use strict";
 
-let serviceUrl = "http://localhost:8081";
+let serviceUrl = "http://localhost:8080";
 let views;
 
 let ready = new Promise((res, rej) => {

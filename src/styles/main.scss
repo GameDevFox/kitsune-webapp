@@ -1,3 +1,32 @@
+.ng-app {
+	node-view .name { margin: 0 2px; }
+	.container { position: relative; }
+	.node-list { padding: 5px; }
+
+	node-name {
+	    padding-left: 5px;
+	    padding-right: 5px;
+	}
+
+	node-details {
+		node-name { font-weight: bold; }
+		div.md-toolbar-tools {
+		    display: flex;
+		    justify-content: space-between;
+		}
+	}
+
+	.savePanel {
+	    position: absolute;
+	    right: 0px;
+	}
+
+	.node-id {
+	    font-weight: bold;
+	    font-family: monospace;
+	}
+}
+
 .graphContainer {
 	border: 1px solid black;
 	margin-top: 5px;

@@ -8,9 +8,22 @@
   "license": "GPL-2.0",
   "homepage": "https://github.com/GameDevFox/kitsune-webapp",
   "dependencies": {
+    "angular": "^1.5.8",
+    "material-design-lite": "^1.1.3",
+    "angular-material": "^1.0.9",
+    "angular-ui-router": "^0.3.1",
+
     "bootstrap": "~3.3.6",
     "lodash": "~3.10.1",
     "vue": "~1.0.11",
     "cytoscape": "~2.5.4"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
   }
 }

@@ -3,6 +3,7 @@ var gulpLoadPlugins = require("gulp-load-plugins");
 
 var browserSync = require("browser-sync").create();
 var jshintStylish = require("jshint-stylish");
+var wiredep = require("wiredep").stream;
 
 var g = gulpLoadPlugins({
 	rename: {
@@ -46,10 +47,13 @@ gulp.task("build-views", function() {
 		.pipe(gulp.dest("app/data/"));
 });
 
-gulp.task("serve", function() {
+gulp.task("serve", ["run-watch"], function() {
 	browserSync.init({
 		server: {
-			baseDir: "./app"
+			baseDir: "./app",
+			routes: {
+				"/bower_components": "./bower_components"
+			}
 		}
 	});
 });
@@ -66,8 +70,8 @@ gulp.task("views-reload", ["build-views"], function() {
 	browserSync.reload();
 });
 
-gulp.task("watch", function(done) {
-	g.sequence("build", ["serve", "run-watch"])(done);
+gulp.task("watch", ["build"], function(done) {
+	gulp.run("run-watch");
 });
 
 gulp.task("run-watch", function() {
@@ -75,4 +79,10 @@ gulp.task("run-watch", function() {
 	gulp.watch("src/scripts/*.js", ["scripts-reload"]);
 	gulp.watch("src/styles/*.scss", ["build-styles"]);
 	gulp.watch("src/views/*", ["views-reload"]);
+});
+
+gulp.task("inject", function() {
+    return gulp.src("./src/index.html")
+		.pipe(wiredep({ ignorePath: "../" }))
+        .pipe(gulp.dest("./app/"));
 });
