@@ -3,8 +3,10 @@ console.log("Hello Kitsune");
 let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
 
 mod.run(function(kitsuneService) {
-    kitsuneService.describeNode("7f82d45a6ffb5c345f84237a621de35dd8b7b0e3").then(id => console.log("mkid", id));
+    kitsuneService.describeNode("7f82d45a6ffb5c345f84237a621de35dd8b7b0e3").then(id => console.log("describeNode", id));
 });
+
+mod.constant("kitsuneUrl", "http://localhost:8080/");
 
 mod.config(function($mdThemingProvider, $stateProvider) {
     $mdThemingProvider
@@ -22,15 +24,17 @@ mod.config(function($mdThemingProvider, $stateProvider) {
     });
 });
 
-mod.factory("kitsuneService", function($http) {
+mod.factory("kitsuneService", function($http, kitsuneUrl) {
 
     let post = function(funcId, data) {
-        let request = { method: "POST", url: "/api/"+ funcId, headers: {
+        let request = { method: "POST", url: kitsuneUrl+"api/"+ funcId, headers: {
             'Content-Type': 'text/plain'
         }};
         if(data)
             request.data = data;
-        return $http(request);
+        return $http(request).then(function(result) {
+            return result;
+        });
     };
 
     let mkCall = function(funcId, data) {
