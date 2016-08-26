@@ -20,23 +20,18 @@ Promise.all([ready, loadViewData]).then(() => {
 	let graphBox = container.find(".graph")[0];
 	let listBox = container.find(".list");
 
-	let data = JSON.stringify({ head: "7f82d45a6ffb5c345f84237a621de35dd8b7b0e3" });
-	console.log("D", data);
-
 	Promise.all([
 		$.ajax(`${serviceUrl}/a1e815356dceab7fded042f3032925489407c93e`, {
 			method: "POST",
 			contentType: "text/plain",
-			data: data
-		}), //$.get(`${serviceUrl}/edges`),
-		$.get(`${serviceUrl}/8b1f2122a8c08b5c1314b3f42a9f462e35db05f7`) //$.get(`${serviceUrl}/strings`)
+			data: JSON.stringify({ head: "7f82d45a6ffb5c345f84237a621de35dd8b7b0e3" })
+		}),
+		$.get(`${serviceUrl}/8b1f2122a8c08b5c1314b3f42a9f462e35db05f7`)
 	]).then(([edges, strings]) => {
 		let ids = edges.map(v => v.id);
 		let heads = edges.map(v => v.head);
 		let tails = edges.map(v => v.tail);
 		let nodes = _.uniq(_.concat(ids, heads, tails));
-
-		console.log("EL", edges.length);
 
 		var cNodes = _.map(nodes, (node) => {
 			return {
@@ -98,7 +93,7 @@ Promise.all([ready, loadViewData]).then(() => {
 
 		_.each(strings, function(string) {
 			var node = cy.nodes("#"+string.id)
-			node.style("background-color", "#ffff00").data({ label: _.trunc(string.string) });
+			node.style("background-color", "#ffff00").data({ label: _.truncate(string.string) });
 		});
 	});
 
