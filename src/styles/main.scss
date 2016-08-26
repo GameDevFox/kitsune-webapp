@@ -1,9 +1,6 @@
-.container {
-	position: relative;
-	.savePanel {
-	    position: absolute;
-	    right: 0px;
-	}
+.savePanel {
+    position: absolute;
+    right: 0px;
 }
 
 node-view .name { margin: 0 2px; }
@@ -28,11 +25,9 @@ node-details {
 			border-bottom: 4px solid #2196F3;
 		}
 
-		.group-list {
-			node-group {
-				display: flex;
-				flex-direction: column;
-			}
+		.group-list .list{
+			display: flex;
+			flex-direction: column;
 		}
 	}
 

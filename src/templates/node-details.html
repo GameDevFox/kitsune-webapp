@@ -5,9 +5,12 @@
 </md-toolbar>
 
 <div class="contents">
-    <div class="group-list" ng-if="$ctrl.nodeDesc | contains:'39bedcfba59c016590ddd53ddc7d89268b5340fd'">
+    <div class="group-list" ng-if="$ctrl.groupList.length">
         <div class="header">Group</div>
-        <node-group node-id="$ctrl.nodeId"></node-group>
+        <!-- <node-group node-id="$ctrl.nodeId"></node-group> -->
+        <div class="list">
+            <node-button ng-repeat="id in $ctrl.groupList" node-id="id"></node-button>
+        </div>
     </div>
 
     <div>

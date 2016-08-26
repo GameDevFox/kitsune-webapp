@@ -10,7 +10,7 @@ let loadViewData = $.get("/data/views.json")
 function init() {
 	console.log("Hello Kitsune Webapp");
 
-	let container = $(".container");
+	let container = $(".g");
 	let graphBox = container.find(".graph")[0];
 	let listBox = container.find(".list");
 
