@@ -13,7 +13,7 @@
 
     <link href="styles/main.css" rel="stylesheet">
 </head>
-<body ng-app="kitsune" ng-controller="yours as vm">
+<body ng-app="kitsune" ng-controller="kitsune as vm">
 
     <div class="container">
         <div class="savePanel">
@@ -30,20 +30,10 @@
             <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="vm.removeName(vm.id, vm.name)">Un-name</button>
         </div>
 
-        <div>
-            <md-toolbar>
-                <div class="md-toolbar-tools">Core Groups</div>
-            </md-toolbar>
-
-            <div class="node-list">
-                <node-button ng-repeat="id in vm.coreGroups" id="id"></node-button>
-            </div>
-        </div>
-
         <div ui-view></div>
 
-        <a href="#" ng-init="showGraph=true" ng-click="showGraph=!showGraph"/>{{ showGraph ? "Hide" : "Show" }}</a>
-        <div ng-show="showGraph">
+        <a href="#" ng-init="showGraph=false" ng-click="showGraph=!showGraph"/>{{ showGraph ? "Hide" : "Show" }}</a>
+        <div class="g" ng-show="showGraph">
             <div class="graphContainer">
                 <div class="graph"></div>
             </div>

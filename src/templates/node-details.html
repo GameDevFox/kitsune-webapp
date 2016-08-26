@@ -4,12 +4,16 @@
   </div>
 </md-toolbar>
 
-Types:
-<div ng-repeat="type in $ctrl.nodeDesc">
-  <node-button id="type"></node-button>
-</div>
+<div class="contents">
+    <div class="group-list" ng-if="$ctrl.nodeDesc | contains:'39bedcfba59c016590ddd53ddc7d89268b5340fd'">
+        <div class="header">Group</div>
+        <node-group node-id="$ctrl.nodeId"></node-group>
+    </div>
 
-<node-group nf-if="$ctrl.nodeDesc | contains:'39bedcfba59c016590ddd53ddc7d89268b5340fd'" id="$ctrl.nodeId">
-  [{{ $gCtrl }}]
-  <div ng-repeat="id in $ctrl.group">{{ id }}</div>
-</node-group>
+    <div>
+        <div class="header">Types</div>
+        <div ng-repeat="type in $ctrl.nodeDesc">
+          <node-button node-id="type"></node-button>
+        </div>
+    <div>
+<div>

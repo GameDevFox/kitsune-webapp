@@ -5,7 +5,6 @@
 	    right: 0px;
 	}
 }
-.node-list { padding: 5px; }
 
 node-view .name { margin: 0 2px; }
 
@@ -15,7 +14,30 @@ node-name {
 }
 
 node-details {
+
+	.contents {
+		display: flex;
+		flex-direction: row;
+
+		& > * {
+			padding-right: 5px;
+		}
+
+		.header {
+			font-weight: bold;
+			border-bottom: 4px solid #2196F3;
+		}
+
+		.group-list {
+			node-group {
+				display: flex;
+				flex-direction: column;
+			}
+		}
+	}
+
 	node-name { font-weight: bold; }
+
 	div.md-toolbar-tools {
 	    display: flex;
 	    justify-content: space-between;
