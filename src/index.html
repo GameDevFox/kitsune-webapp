@@ -16,47 +16,42 @@
 
     <link href="styles/main.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app="kitsune" ng-controller="yours as vm">
 
-    <!-- ANGULAR APP -->
-    <div class="ng-app" ng-app="kitsune" ng-controller="yours as vm">
-        <div class="container">
-            <div class="savePanel">
-                <md-button class="md-raised md-primary" ng-click="vm.save()">Save</button>
-                </div>
+    <div class="container">
+        <div class="savePanel">
+            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        </div>
 
-                <div>
-                    <input ng-model="vm.id" placeholder="id"/>
-                    <input ng-model="vm.name" placeholder="name"/>
-                </div>
+        <div>
+            <input ng-model="vm.id" placeholder="id"/>
+            <input ng-model="vm.name" placeholder="name"/>
+        </div>
 
-                <div>
-                    <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="vm.addName(vm.id, vm.name)">Name</button>
-                    <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="vm.removeName(vm.id, vm.name)">Un-name</button>
-                </div>
+        <div>
+            <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="vm.addName(vm.id, vm.name)">Name</button>
+            <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="vm.removeName(vm.id, vm.name)">Un-name</button>
+        </div>
 
-                <div>
-                    <md-toolbar>
-                        <div class="md-toolbar-tools">Core Groups</div>
-                    </md-toolbar>
+        <div>
+            <md-toolbar>
+                <div class="md-toolbar-tools">Core Groups</div>
+            </md-toolbar>
 
-                    <div class="node-list">
-                        <node-button ng-repeat="id in vm.coreGroups" id="id"></node-button>
-                    </div>
-                </div>
-
-                <div ui-view></div>
-
+            <div class="node-list">
+                <node-button ng-repeat="id in vm.coreGroups" id="id"></node-button>
             </div>
         </div>
-    </div>
 
-    <!-- GRAPH APP -->
-    <div class="container">
-        <div class="graphContainer">
-            <div class="graph"></div>
+        <div ui-view></div>
+
+        <a href="#" ng-init="showGraph=true" ng-click="showGraph=!showGraph"/>{{ showGraph ? "Hide" : "Show" }}</a>
+        <div ng-show="showGraph">
+            <div class="graphContainer">
+                <div class="graph"></div>
+            </div>
+            <div class="list"></div>
         </div>
-        <div class="list"></div>
     </div>
 
     <!-- bower:js -->
