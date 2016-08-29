@@ -2,8 +2,13 @@ console.log("Hello Kitsune");
 
 let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
 
-mod.run(function(kitsuneService, $state) {
-    // $state.go("node-view", { id: '7f82d45a6ffb5c345f84237a621de35dd8b7b0e3' });
+mod.controller("kitsune", function($stateParams, kitsuneService) {
+
+    this.node = $stateParams.id;
+
+    this.log = (msg) => console.log(msg);
+    this.save = () => kitsuneService.save().then(() => console.log("Saved!"));
+    // let nodeId = "7f82d45a6ffb5c345f84237a621de35dd8b7b0e3";
 });
 
 mod.factory("kitsuneService", function($http, kitsuneUrl) {
@@ -12,8 +17,10 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         let request = { method: "POST", url: kitsuneUrl+"api/"+ funcId, headers: {
             'Content-Type': 'text/plain'
         }};
+
         if(data)
             request.data = data;
+
         return $http(request).then(function(result) {
             return result;
         });
@@ -29,6 +36,7 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         unname: (node, name) => mkCall("708f17af0e4f537757cf8817cbca4ed016b7bb8b", { node, name }),
         listGroup: (groupId) => mkCall("a8a338d08b0ef7e532cbc343ba1e4314608024b2", groupId),
         listNames: (nodeId) => mkCall("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3", nodeId),
+        getStringValue: (nodeId) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", nodeId),
         describeNode: (nodeId) => mkCall("15b16d6f586760a181f017d264c4808dc0f8bd06", nodeId),
         save: () => $http({ method: "GET", url: "/api/save" }),
 
@@ -37,19 +45,17 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
     return service;
 });
 
-mod.controller("kitsune", function(kitsuneService) {
-    this.log = (msg) => console.log(msg);
-    this.addName = (node, name) => kitsuneService.name(node, name).then(() => console.log("Named!"));
-    this.removeName = (node, name) => kitsuneService.unname(node, name).then(() => console.log("Unnamed!"));
-    this.save = () => kitsuneService.save().then(() => console.log("Saved!"));
-    // let nodeId = "7f82d45a6ffb5c345f84237a621de35dd8b7b0e3";
+mod.controller("NodeCtrl", function($scope, $attrs) {
+    let ctrl = this;
+    $attrs.$observe("node", function(value) {
+        ctrl.id = value;
+    });
 });
 
 mod.component("nodeButton", {
     templateUrl: 'templates/node-button.html',
-    bindings: {
-        nodeId: "<"
-    }
+    controllerAs: "vm",
+    bindings: { node: "<" }
 });
 
 mod.component("nodeName", {
@@ -59,47 +65,45 @@ mod.component("nodeName", {
         let getName = function(value) {
             return kitsuneService.listNames(value).then(x => x[0]);
         };
-        $scope.$watch(function() {
-            return ctrl.nodeId;
-        }, function(val) {
+        $scope.$watch(() => ctrl.node, function(val) {
             getName(val).then(name => {
                 ctrl.name = name ? name : val;
             });
         });
     },
-    bindings: {
-        nodeId: "<"
-    }
+    bindings: { node: "<" }
 });
 
 mod.component("nodeDetails", {
     templateUrl: "templates/node-details.html",
     controller: function(kitsuneService, $scope) {
-        $scope.$watch(() => { this.nodeId }, () => {
-            kitsuneService.describeNode(this.nodeId).then(r => {
-                this.nodeDesc = r;
+        let ctrl = this;
+
+        ctrl.loadNames = () => {
+            kitsuneService.listNames(ctrl.node).then(r => ctrl.nameList = r);
+        };
+        ctrl.addName = () => {
+            kitsuneService.name(ctrl.node, ctrl.newName).then(ctrl.loadNames);
+            ctrl.newName = null;
+        };
+        ctrl.removeName = name => {
+            kitsuneService.unname(ctrl.node, name).then(ctrl.loadNames);
+        };
+
+        $scope.$watch(() => { ctrl.node }, () => {
+            let node = ctrl.node;
+
+            kitsuneService.describeNode(ctrl.node).then(nodeDesc => {
+                ctrl.nodeDesc = nodeDesc;
+                if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070'))
+                    kitsuneService.getStringValue(ctrl.node).then(r => ctrl.stringValue = r);
             });
-            kitsuneService.listGroup(this.nodeId).then(r => {
-                this.groupList = r;
-            });
+            kitsuneService.listGroup(ctrl.node).then(r => ctrl.groupList = r);
+            ctrl.loadNames();
         });
     },
     controllerAs: "$ctrl",
-    bindings: {
-        nodeId: "<"
-    }
-});
-
-mod.component("nodeGroup", {
-    template: '<node-button ng-repeat="id in vm.group" node-id="id"></node-button>',
-    controller: function(kitsuneService) {
-        let ctrl = this;
-        kitsuneService.listGroup(ctrl.nodeId).then(group => ctrl.group = group);
-    },
-    controllerAs: "vm",
-    bindings: {
-        nodeId: "<"
-    }
+    bindings: { node: "<" }
 });
 
 mod.filter("type", function() {
@@ -111,7 +115,6 @@ mod.filter("contains", function() {
 });
 
 // CONFIG //
-
 mod.constant("kitsuneUrl", "http://localhost:8080/");
 
 mod.config(function($mdThemingProvider, $urlRouterProvider, $stateProvider) {
@@ -124,10 +127,7 @@ mod.config(function($mdThemingProvider, $urlRouterProvider, $stateProvider) {
 
     $stateProvider.state('node-view', {
         url: "/node/:id",
-        template: '<node-details ng-if="vm.id" node-id="vm.id"></node-details>',
-        controller: function($stateParams) {
-            this.id = $stateParams.id;
-        },
-        controllerAs: "vm"
+        templateUrl: 'templates/main.html',
+        controller: "kitsune as vm"
     });
 });

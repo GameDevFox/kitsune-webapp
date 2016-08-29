@@ -1,28 +1,34 @@
 {
-  "name": "kitsune-webapp",
-  "description": "A web client for the Kistune project",
-  "main": "",
-  "authors": [
-    "Edward Nicholes Jr."
-  ],
-  "license": "GPL-2.0",
-  "homepage": "https://github.com/GameDevFox/kitsune-webapp",
-  "dependencies": {
-    "angular": "^1.5.8",
-    "material-design-lite": "^1.1.3",
-    "angular-material": "^1.0.9",
-    "angular-ui-router": "^0.3.1",
-    "bootstrap": "~3.3.6",
-    "vue": "~1.0.11",
-    "cytoscape": "~2.5.4",
-    "lodash": "^4.15.0"
-  },
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.min.css",
-        "dist/js/bootstrap.js"
-      ]
+    "name": "kitsune-webapp",
+    "description": "A web client for the Kistune project",
+    "main": "",
+    "authors": [
+        "Edward Nicholes Jr."
+    ],
+    "license": "GPL-2.0",
+    "homepage": "https://github.com/GameDevFox/kitsune-webapp",
+    "dependencies": {
+        "angular": "^1.5.8",
+        "material-design-lite": "^1.1.3",
+        "angular-material": "^1.0.9",
+        "angular-ui-router": "^0.3.1",
+        "bootstrap": "~3.3.6",
+        "vue": "~1.0.11",
+        "cytoscape": "~2.5.4",
+        "lodash": "^4.15.0",
+        "font-awesome": "^4.6.3"
+    },
+    "overrides": {
+        "bootstrap": {
+            "main": [
+                "dist/css/bootstrap.min.css",
+                "dist/js/bootstrap.js"
+            ]
+        },
+        "font-awesome": {
+            "main": [
+                "css/font-awesome.min.css"
+            ]
+        }
     }
-  }
 }

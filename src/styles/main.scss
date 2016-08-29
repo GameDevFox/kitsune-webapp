@@ -1,6 +1,5 @@
-.savePanel {
-    position: absolute;
-    right: 0px;
+.nameButtons {
+    button { margin: 5px 10px 5px 0px; }
 }
 
 node-view .name { margin: 0 2px; }
@@ -8,86 +7,118 @@ node-view .name { margin: 0 2px; }
 node-name {
     padding-left: 5px;
     padding-right: 5px;
+    white-space: pre;
 }
 
-node-details {
-
-	.contents {
-		display: flex;
-		flex-direction: row;
-
-		& > * {
-			padding-right: 5px;
-		}
-
-		.header {
-			font-weight: bold;
-			border-bottom: 4px solid #2196F3;
-		}
-
-		.group-list .list{
-			display: flex;
-			flex-direction: column;
-		}
-	}
-
-	node-name { font-weight: bold; }
-
-	div.md-toolbar-tools {
-	    display: flex;
-	    justify-content: space-between;
-	}
+node-button.node-button-small a {
+    margin: 0px;
+    min-height: 19px;
+    line-height: 18px;
+    .md-ripple-container { height: 19px; }
 }
 
+.main {
+
+    .header { font-weight: bold; }
+
+    .savePanel {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    node-details {
+
+        md-toolbar .name button {
+            border: none;
+            background: none;
+            color: black;
+        }
+
+        .name-entry { margin: 5px 0; }
+
+        .contents {
+
+            display: flex;
+            flex-direction: column;
+
+            & > * { padding-right: 5px; }
+
+            .header {
+                font-weight: bold;
+                border-bottom: 4px solid gray;// #2196F3;
+            }
+
+            .lower-pane {
+
+                display: flex;
+                flex-direction: row;
+
+                & > * { margin-right: 20px; }
+
+                .group-list .list {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
+
+        node-name { font-weight: bold; }
+
+        div.md-toolbar-tools {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
 .node-id {
     font-weight: bold;
     font-family: monospace;
 }
 
 .graphContainer {
-	border: 1px solid black;
-	margin-top: 5px;
-	margin-bottom: 20px;
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-bottom: 20px;
 
-	.graph { height: 600px; }
+    .graph { height: 600px; }
 }
 
 .ki-nodeView {
 
-	.ids {
-		font-size: larger;
-	}
+    .ids {
+        font-size: larger;
+    }
 
-	.name {
-		margin-right: 5px;
-	}
+    .name {
+        margin-right: 5px;
+    }
 
-	.types {
-		font-weight: bold;
-	}
+    .types {
+        font-weight: bold;
+    }
 
-	.type {
-		color: orange;
-		display: inline;
-		padding-right: 10px
-	}
+    .type {
+        color: orange;
+        display: inline;
+        padding-right: 10px
+    }
 
-	.type:last-child {
-		padding-right: 0px;
-	}
+    .type:last-child {
+        padding-right: 0px;
+    }
 
-	.head {
-		color: red;
-		font-style: italic;
-	}
+    .head {
+        color: red;
+        font-style: italic;
+    }
 
-	.tail {
-		color: blue;
-		font-style: italic;
-	}
+    .tail {
+        color: blue;
+        font-style: italic;
+    }
 
-	.string {
-		color: green;
-		font-weight: bold;
-	}
+    .string {
+        color: green;
+        font-weight: bold;
+    }
 }

@@ -13,33 +13,9 @@
 
     <link href="styles/main.css" rel="stylesheet">
 </head>
-<body ng-app="kitsune" ng-controller="kitsune as vm">
+<body ng-app="kitsune">
 
-    <div class="container-fluid">
-        <div class="savePanel">
-            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
-        </div>
-
-        <div>
-            <input ng-model="vm.id" placeholder="id"/>
-            <input ng-model="vm.name" placeholder="name"/>
-        </div>
-
-        <div>
-            <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="vm.addName(vm.id, vm.name)">Name</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="vm.removeName(vm.id, vm.name)">Un-name</button>
-        </div>
-
-        <div ui-view></div>
-
-        <a href="#" ng-init="showGraph=false" ng-click="showGraph=!showGraph"/>{{ showGraph ? "Hide" : "Show" }}</a>
-        <div class="g" ng-show="showGraph">
-            <div class="graphContainer">
-                <div class="graph"></div>
-            </div>
-            <div class="list"></div>
-        </div>
-    </div>
+    <div class="main" ui-view></div>
 
     <!-- bower:js -->
     <!-- endbower -->

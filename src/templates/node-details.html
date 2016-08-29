@@ -1,22 +1,40 @@
 <md-toolbar>
-  <div class="md-toolbar-tools">
-       <node-name node-id="$ctrl.nodeId"></node-name><span>{{ $ctrl.nodeId }}</span>
-  </div>
+    <div class="md-toolbar-tools">
+        <span>
+            <span class="name" ng-repeat="name in $ctrl.nameList">
+                {{ name }}
+                <button class="" ng-click="$ctrl.removeName(name)">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                </button>
+            </span>
+        </span>
+        <span>{{ $ctrl.node }}</span>
+    </div>
 </md-toolbar>
 
+<div class="name-entry">
+    <input type="text" ng-model="$ctrl.newName" placeholder="New Name"/>
+    <button ng-click="$ctrl.addName()">Add</button>
+</div>
+
+<div ng-if="$ctrl.nodeDesc | contains:'821f1f34a4998adf0f1efd9b772b57efef71a070'">
+    <span class="header">String Value:</span>
+    <span>{{ $ctrl.stringValue }}</span>
+</div>
+
 <div class="contents">
-    <div class="group-list" ng-if="$ctrl.groupList.length">
-        <div class="header">Group</div>
-        <!-- <node-group node-id="$ctrl.nodeId"></node-group> -->
-        <div class="list">
-            <node-button ng-repeat="id in $ctrl.groupList" node-id="id"></node-button>
-        </div>
+
+    <div class="types">
+        <div class="header">Types</div>
+        <node-button ng-repeat="type in $ctrl.nodeDesc" node="type"></node-button>
     </div>
 
-    <div>
-        <div class="header">Types</div>
-        <div ng-repeat="type in $ctrl.nodeDesc">
-          <node-button node-id="type"></node-button>
+    <div class="lower-pane">
+        <div class="group-list" ng-if="$ctrl.groupList.length">
+            <div class="header">Group</div>
+            <div class="list">
+                <node-button class="node-button-small" ng-repeat="id in $ctrl.groupList" node="id"></node-button>
+            </div>
         </div>
     <div>
-<div>
+</div>
