@@ -38,6 +38,10 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         listNames: (nodeId) => mkCall("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3", nodeId),
         getStringValue: (nodeId) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", nodeId),
         describeNode: (nodeId) => mkCall("15b16d6f586760a181f017d264c4808dc0f8bd06", nodeId),
+
+        getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node })
+            .then(r => _.map(r, "head")),
+
         save: () => $http({ method: "GET", url: "/api/save" }),
 
         log: (msg) =>  { console.log(msg); }
@@ -50,12 +54,6 @@ mod.controller("NodeCtrl", function($scope, $attrs) {
     $attrs.$observe("node", function(value) {
         ctrl.id = value;
     });
-});
-
-mod.component("nodeButton", {
-    templateUrl: 'templates/node-button.html',
-    controllerAs: "vm",
-    bindings: { node: "<" }
 });
 
 mod.component("nodeName", {
@@ -71,6 +69,16 @@ mod.component("nodeName", {
             });
         });
     },
+    bindings: { node: "<" }
+});
+
+mod.component("nodeButton", {
+    templateUrl: 'templates/node-button.html',
+    controller: function(kitsuneService) {
+        let ctrl = this;
+        kitsuneService.describeNode(ctrl.node).then(r => ctrl.desc = r);
+    },
+    controllerAs: "vm",
     bindings: { node: "<" }
 });
 
@@ -93,17 +101,22 @@ mod.component("nodeDetails", {
         $scope.$watch(() => { ctrl.node }, () => {
             let node = ctrl.node;
 
+            ctrl.loadNames();
+            kitsuneService.getHeads(ctrl.node).then(r => ctrl.heads = r);
+            kitsuneService.listGroup(ctrl.node).then(r => ctrl.groupList = r);
             kitsuneService.describeNode(ctrl.node).then(nodeDesc => {
                 ctrl.nodeDesc = nodeDesc;
                 if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070'))
                     kitsuneService.getStringValue(ctrl.node).then(r => ctrl.stringValue = r);
             });
-            kitsuneService.listGroup(ctrl.node).then(r => ctrl.groupList = r);
-            ctrl.loadNames();
         });
     },
     controllerAs: "$ctrl",
     bindings: { node: "<" }
+});
+
+mod.filter("desc", function() {
+    return value => value ? _.map(value, v => "t"+v).join(" ") : null;
 });
 
 mod.filter("type", function() {

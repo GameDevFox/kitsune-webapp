@@ -5,10 +5,17 @@
 node-view .name { margin: 0 2px; }
 
 node-name {
+    display: inline-block;
     padding-left: 5px;
     padding-right: 5px;
-    white-space: pre;
 }
+
+a.md-raised {
+    // &.t39bedcfba59c016590ddd53ddc7d89268b5340fd { background-color: blue; color: white; }
+    // &.t821f1f34a4998adf0f1efd9b772b57efef71a070 { background-color: green; color: white; }
+}
+
+
 
 node-button.node-button-small a {
     margin: 0px;
@@ -54,11 +61,6 @@ node-button.node-button-small a {
                 flex-direction: row;
 
                 & > * { margin-right: 20px; }
-
-                .group-list .list {
-                    display: flex;
-                    flex-direction: column;
-                }
             }
         }
 

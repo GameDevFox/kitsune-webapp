@@ -37,34 +37,6 @@ function init() {
 				node.style("background-color", "#ffff00").data({ label: _.truncate(string.string) });
 			});
 		});
-
-		renderNodes(listBox, nodes);
-	});
-}
-
-function renderNodes(container, nodes) {
-
-	_.each(nodes, (node) => {
-		let v = createVue("nodeView", {
-			node: node,
-			names: null,
-			types: [],
-			heads: null,
-			tails: null,
-			string: null
-		});
-		container.append(v.$el);
-
-		post("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3", node)
-			.then(data => v.names = data); // getNames
-		post("15b16d6f586760a181f017d264c4808dc0f8bd06", node)
-			.then(data => { v.types = data }); // getTypes
-		post("a1e815356dceab7fded042f3032925489407c93e", { tail: node })
-			.then(data => v.heads = _.map(data, node => node.head)); // getHeads
-		post("a1e815356dceab7fded042f3032925489407c93e", { head: node })
-			.then(data => v.tails = _.map(data, node => node.tail)); // getTails
-		post("8b1f2122a8c08b5c1314b3f42a9f462e35db05f7", { id: node })
-			.then(data => { v.string = data.length == 1 ? data[0].string : null; }) // getStrings
 	});
 }
 
@@ -97,17 +69,6 @@ function buildCyEdges(edges) {
 	}).flatten().value();
 
 	return cEdges;
-}
-
-function createVue(viewName, data) {
-	let viewMarkup = views[viewName];
-	let el = $(viewMarkup);
-	el.addClass("ki-"+viewName);
-	let v = new Vue({
-		el: el[0],
-		data: data
-	});
-	return v;
 }
 
 function post(path, data) {

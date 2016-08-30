@@ -27,13 +27,22 @@
     <div class="types">
         <div class="header">Types</div>
         <node-button ng-repeat="type in $ctrl.nodeDesc" node="type"></node-button>
+        <span ng-if="!$ctrl.nodeDesc.length">None</span>
     </div>
 
     <div class="lower-pane">
+
+        <div ng-if="$ctrl.heads.length">
+            <div class="header">Heads</div>
+            <div  ng-repeat="id in $ctrl.heads">
+                <node-button class="node-button-small" node="id"></node-button>
+            </div>
+        </div>
+
         <div class="group-list" ng-if="$ctrl.groupList.length">
             <div class="header">Group</div>
-            <div class="list">
-                <node-button class="node-button-small" ng-repeat="id in $ctrl.groupList" node="id"></node-button>
+            <div ng-repeat="id in $ctrl.groupList">
+                <node-button class="node-button-small" node="id"></node-button>
             </div>
         </div>
     <div>
