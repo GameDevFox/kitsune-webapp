@@ -32,6 +32,7 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
 
     let service = {
         mkid: () => mkCall("bf565ae1309f425b0ab00efa2ba541ae03ad22cf"),
+        readEdge: (edge) => mkCall("25cff8a2afcf560b5451d2482dbf9d9d69649f26", edge),
         name: (node, name) => mkCall("2885e34819b8a2f043b139bd92b96e484efd6217", { node, name }),
         unname: (node, name) => mkCall("708f17af0e4f537757cf8817cbca4ed016b7bb8b", { node, name }),
         listGroup: (groupId) => mkCall("a8a338d08b0ef7e532cbc343ba1e4314608024b2", groupId),
@@ -42,7 +43,7 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node })
             .then(r => _.map(r, "head")),
 
-        save: () => $http({ method: "GET", url: "/api/save" }),
+        save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
 
         log: (msg) =>  { console.log(msg); }
     };
@@ -106,8 +107,10 @@ mod.component("nodeDetails", {
             kitsuneService.listGroup(ctrl.node).then(r => ctrl.groupList = r);
             kitsuneService.describeNode(ctrl.node).then(nodeDesc => {
                 ctrl.nodeDesc = nodeDesc;
-                if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070'))
+                if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
                     kitsuneService.getStringValue(ctrl.node).then(r => ctrl.stringValue = r);
+                if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
+                    kitsuneService.readEdge(ctrl.node).then(r => ctrl.edge = r);
             });
         });
     },
