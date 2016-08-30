@@ -58,7 +58,7 @@ mod.controller("NodeCtrl", function($scope, $attrs) {
 });
 
 mod.component("nodeName", {
-    template: "{{ $ctrl.name }}",
+    template: "{{ vm.name }}",
     controller: function(kitsuneService, $scope) {
         let ctrl = this;
         let getName = function(value) {
@@ -70,6 +70,7 @@ mod.component("nodeName", {
             });
         });
     },
+    controllerAs: "vm",
     bindings: { node: "<" }
 });
 
@@ -114,7 +115,7 @@ mod.component("nodeDetails", {
             });
         });
     },
-    controllerAs: "$ctrl",
+    controllerAs: "vm",
     bindings: { node: "<" }
 });
 

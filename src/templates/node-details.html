@@ -1,35 +1,35 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
         <span>
-            <span class="name" ng-repeat="name in $ctrl.nameList">
+            <span class="name" ng-repeat="name in vm.nameList">
                 {{ name }}
-                <button class="" ng-click="$ctrl.removeName(name)">
+                <button class="" ng-click="vm.removeName(name)">
                     <i class="fa fa-times-circle" aria-hidden="true"></i>
                 </button>
             </span>
         </span>
-        <span>{{ $ctrl.node }}</span>
+        <span>{{ vm.node }}</span>
     </div>
 </md-toolbar>
 
 <div class="name-entry">
-    <input type="text" ng-model="$ctrl.newName" placeholder="New Name"/>
-    <button ng-click="$ctrl.addName()">Add</button>
+    <input type="text" ng-model="vm.newName" placeholder="New Name"/>
+    <button ng-click="vm.addName()">Add</button>
 </div>
 
-<div ng-if="$ctrl.stringValue">
+<div ng-if="vm.stringValue">
     <span class="header">String Value:</span>
-    <span>{{ $ctrl.stringValue }}</span>
+    <span>{{ vm.stringValue }}</span>
 </div>
 
-<div ng-if="$ctrl.edge">
+<div ng-if="vm.edge">
     <span class="header">Edge:</span>
     <span>
-        <node-button class="node-button-small" node="$ctrl.edge.head"></node-button>
+        <node-button class="node-button-small" node="vm.edge.head"></node-button>
         <i class="fa fa-caret-right" aria-hidden="true"></i>
-        <node-button class="node-button-small" node="$ctrl.edge.id"></node-button>
+        <node-button class="node-button-small" node="vm.edge.id"></node-button>
         <i class="fa fa-caret-right" aria-hidden="true"></i>
-        <node-button class="node-button-small" node="$ctrl.edge.tail"></node-button>
+        <node-button class="node-button-small" node="vm.edge.tail"></node-button>
     </span>
 </div>
 
@@ -37,23 +37,23 @@
 
     <div class="types">
         <div class="header">Types</div>
-        <node-button ng-repeat="type in $ctrl.nodeDesc" node="type"></node-button>
-        <span ng-if="!$ctrl.nodeDesc.length">None</span>
+        <node-button ng-repeat="type in vm.nodeDesc" node="type"></node-button>
+        <span ng-if="!vm.nodeDesc.length">None</span>
     </div>
 
     <div class="lower-pane">
 
         <div>
-            <div ng-if="$ctrl.heads.length">
+            <div ng-if="vm.heads.length">
                 <div class="header">Heads</div>
-                <div  ng-repeat="id in $ctrl.heads">
+                <div  ng-repeat="id in vm.heads">
                     <node-button class="node-button-small" node="id"></node-button>
                 </div>
             </div>
 
-            <div class="group-list" ng-if="$ctrl.groupList.length">
+            <div class="group-list" ng-if="vm.groupList.length">
                 <div class="header">Tails</div>
-                <div ng-repeat="id in $ctrl.groupList">
+                <div ng-repeat="id in vm.groupList">
                     <node-button class="node-button-small" node="id"></node-button>
                 </div>
             </div>
