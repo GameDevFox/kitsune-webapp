@@ -32,17 +32,19 @@
 
     <div class="lower-pane">
 
-        <div ng-if="$ctrl.heads.length">
-            <div class="header">Heads</div>
-            <div  ng-repeat="id in $ctrl.heads">
-                <node-button class="node-button-small" node="id"></node-button>
+        <div>
+            <div ng-if="$ctrl.heads.length">
+                <div class="header">Heads</div>
+                <div  ng-repeat="id in $ctrl.heads">
+                    <node-button class="node-button-small" node="id"></node-button>
+                </div>
             </div>
-        </div>
 
-        <div class="group-list" ng-if="$ctrl.groupList.length">
-            <div class="header">Group</div>
-            <div ng-repeat="id in $ctrl.groupList">
-                <node-button class="node-button-small" node="id"></node-button>
+            <div class="group-list" ng-if="$ctrl.groupList.length">
+                <div class="header">Tails</div>
+                <div ng-repeat="id in $ctrl.groupList">
+                    <node-button class="node-button-small" node="id"></node-button>
+                </div>
             </div>
         </div>
     <div>
