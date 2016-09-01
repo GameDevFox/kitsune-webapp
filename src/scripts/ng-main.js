@@ -43,6 +43,7 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node }),
         getTails: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { head: node }),
 
+        addEdge: (head, tail) => mkCall("f7b073eb5ef5680e7ba308eaf289de185f0ec3f7", { head, tail }),
         removeEdge: (edge) => mkCall("c2d807f302ca499c3584a8ccf04fb7a76cf589ad", edge),
 
         save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
@@ -113,6 +114,12 @@ mod.component("nodeDetails", {
             kitsuneService.unname(ctrl.node, name).then(ctrl.loadNames);
         };
 
+        ctrl.addHead = head => {
+            kitsuneService.addEdge(head, ctrl.node).then(ctrl.load);
+        };
+        ctrl.addTail = tail => {
+            kitsuneService.addEdge(ctrl.node, tail).then(ctrl.load);
+        };
         ctrl.removeEdge = edge => {
             kitsuneService.removeEdge(edge).then(ctrl.load);
         };
