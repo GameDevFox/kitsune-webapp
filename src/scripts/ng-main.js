@@ -40,8 +40,8 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         getStringValue: (nodeId) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", nodeId),
         describeNode: (nodeId) => mkCall("15b16d6f586760a181f017d264c4808dc0f8bd06", nodeId),
 
-        getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node })
-            .then(r => _.map(r, "head")),
+        getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node }),
+        getTails: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { head: node }),
 
         save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
 
@@ -58,15 +58,19 @@ mod.controller("NodeCtrl", function($scope, $attrs) {
 });
 
 mod.component("nodeName", {
-    template: "{{ vm.name }}",
-    controller: function(kitsuneService, $scope) {
+    template: "<span ng-class='vm.name ? \"name\" : \"\"'>{{ vm.name || vm.id }}</span>",
+    controller: function(kitsuneService, $scope, $attrs) {
         let ctrl = this;
         let getName = function(value) {
             return kitsuneService.listNames(value).then(x => x[0]);
         };
         $scope.$watch(() => ctrl.node, function(val) {
+            ctrl.id = _.truncate(val, {
+                length: 16,
+                omission: '*'
+            });
             getName(val).then(name => {
-                ctrl.name = name ? name : val;
+                ctrl.name = name;
             });
         });
     },
@@ -105,13 +109,13 @@ mod.component("nodeDetails", {
 
             ctrl.loadNames();
             kitsuneService.getHeads(ctrl.node).then(r => ctrl.heads = r);
-            kitsuneService.listGroup(ctrl.node).then(r => ctrl.groupList = r);
+            kitsuneService.getTails(ctrl.node).then(r => ctrl.tails = r);
             kitsuneService.describeNode(ctrl.node).then(nodeDesc => {
                 ctrl.nodeDesc = nodeDesc;
-                if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
-                    kitsuneService.getStringValue(ctrl.node).then(r => ctrl.stringValue = r);
                 if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
                     kitsuneService.readEdge(ctrl.node).then(r => ctrl.edge = r);
+                if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
+                    kitsuneService.getStringValue(ctrl.node).then(r => ctrl.stringValue = r);
             });
         });
     },

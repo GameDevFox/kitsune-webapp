@@ -44,17 +44,25 @@
     <div class="lower-pane">
 
         <div>
-            <div ng-if="vm.heads.length">
+            <div class="heads" ng-if="vm.heads.length">
                 <div class="header">Heads</div>
-                <div  ng-repeat="id in vm.heads">
-                    <node-button class="node-button-small" node="id"></node-button>
+                <div  ng-repeat="edge in vm.heads">
+                    <node-button class="node-button-small" node="edge.head"></node-button>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <node-button class="node-button-small" node="edge.id"></node-button>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <span class="this">THIS</span>
                 </div>
             </div>
 
-            <div class="group-list" ng-if="vm.groupList.length">
+            <div class="tails" ng-if="vm.tails.length">
                 <div class="header">Tails</div>
-                <div ng-repeat="id in vm.groupList">
-                    <node-button class="node-button-small" node="id"></node-button>
+                <div ng-repeat="edge in vm.tails">
+                    <span class="this">THIS</span>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <node-button class="node-button-small" node="edge.id"></node-button>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <node-button class="node-button-small" node="edge.tail"></node-button>
                 </div>
             </div>
         </div>
