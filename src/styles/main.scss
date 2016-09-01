@@ -83,6 +83,12 @@ node-button.node-button-small a {
                     i.fa {
                         margin: 0 5px;
                     }
+
+                    button.remove {
+                        border: none;
+                        background: none;
+                        color: red;
+                    }
                 }
             }
         }
@@ -106,44 +112,4 @@ node-button.node-button-small a {
     margin-bottom: 20px;
 
     .graph { height: 600px; }
-}
-
-.ki-nodeView {
-
-    .ids {
-        font-size: larger;
-    }
-
-    .name {
-        margin-right: 5px;
-    }
-
-    .types {
-        font-weight: bold;
-    }
-
-    .type {
-        color: orange;
-        display: inline;
-        padding-right: 10px
-    }
-
-    .type:last-child {
-        padding-right: 0px;
-    }
-
-    .head {
-        color: red;
-        font-style: italic;
-    }
-
-    .tail {
-        color: blue;
-        font-style: italic;
-    }
-
-    .string {
-        color: green;
-        font-weight: bold;
-    }
 }

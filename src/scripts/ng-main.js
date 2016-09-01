@@ -43,6 +43,8 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node }),
         getTails: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { head: node }),
 
+        removeEdge: (edge) => mkCall("c2d807f302ca499c3584a8ccf04fb7a76cf589ad", edge),
+
         save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
 
         log: (msg) =>  { console.log(msg); }
@@ -102,6 +104,7 @@ mod.component("nodeDetails", {
         ctrl.loadNames = () => {
             kitsuneService.listNames(ctrl.node).then(r => ctrl.nameList = r);
         };
+
         ctrl.addName = () => {
             kitsuneService.name(ctrl.node, ctrl.newName).then(ctrl.loadNames);
             ctrl.newName = null;
@@ -110,7 +113,11 @@ mod.component("nodeDetails", {
             kitsuneService.unname(ctrl.node, name).then(ctrl.loadNames);
         };
 
-        $scope.$watch(() => { ctrl.node }, () => {
+        ctrl.removeEdge = edge => {
+            kitsuneService.removeEdge(edge).then(ctrl.load);
+        };
+
+        ctrl.load = () => {
             let node = ctrl.node;
 
             ctrl.loadNames();
@@ -123,7 +130,8 @@ mod.component("nodeDetails", {
                 if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
                     kitsuneService.getStringValue(ctrl.node).then(r => ctrl.stringValue = r);
             });
-        });
+        };
+        $scope.$watch(() => { ctrl.node }, ctrl.load);
     },
     controllerAs: "vm",
     bindings: { node: "<" }

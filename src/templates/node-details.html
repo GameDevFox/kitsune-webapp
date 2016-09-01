@@ -3,7 +3,7 @@
         <span>
             <span class="name" ng-repeat="name in vm.nameList">
                 {{ name }}
-                <button class="" ng-click="vm.removeName(name)">
+                <button ng-click="vm.removeName(name)">
                     <i class="fa fa-times-circle" aria-hidden="true"></i>
                 </button>
             </span>
@@ -58,6 +58,9 @@
                         <i class="fa fa-caret-right" aria-hidden="true"></i>
                         <span class="this">THIS</span>
                     </span>
+                    <button class="remove" ng-click="vm.removeEdge(edge.id)">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
                         <i class="fa fa-caret-right" aria-hidden="true"></i>
                     </span>
                     <node-button class="node-button-small" node="edge.tail"></node-button>
+                    <button class="remove" ng-click="vm.removeEdge(edge.id)">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
