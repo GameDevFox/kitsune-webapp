@@ -88,10 +88,16 @@ mod.component("nodeButton", {
     bindings: { node: "<" }
 });
 
+let showEdges = true;
 mod.component("nodeDetails", {
     templateUrl: "templates/node-details.html",
     controller: function(kitsuneService, $scope) {
         let ctrl = this;
+
+        ctrl.showEdges = showEdges;
+        $scope.$watch("vm.showEdges", (value) => {
+            showEdges = value;
+        });
 
         ctrl.loadNames = () => {
             kitsuneService.listNames(ctrl.node).then(r => ctrl.nameList = r);

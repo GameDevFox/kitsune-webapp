@@ -44,24 +44,32 @@
     <div class="lower-pane">
 
         <div>
+            <md-switch ng-model="vm.showEdges" aria-label="Show Edges">
+                Show Edges
+            </md-switch>
+
             <div class="heads" ng-if="vm.heads.length">
                 <div class="header">Heads</div>
                 <div  ng-repeat="edge in vm.heads">
                     <node-button class="node-button-small" node="edge.head"></node-button>
-                    <i class="fa fa-caret-right" aria-hidden="true"></i>
-                    <node-button class="node-button-small" node="edge.id"></node-button>
-                    <i class="fa fa-caret-right" aria-hidden="true"></i>
-                    <span class="this">THIS</span>
+                    <span ng-show="vm.showEdges">
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                        <node-button class="node-button-small" node="edge.id"></node-button>
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="this">THIS</span>
+                    </span>
                 </div>
             </div>
 
             <div class="tails" ng-if="vm.tails.length">
                 <div class="header">Tails</div>
                 <div ng-repeat="edge in vm.tails">
-                    <span class="this">THIS</span>
-                    <i class="fa fa-caret-right" aria-hidden="true"></i>
-                    <node-button class="node-button-small" node="edge.id"></node-button>
-                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <span ng-show="vm.showEdges">
+                        <span class="this">THIS</span>
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                        <node-button class="node-button-small" node="edge.id"></node-button>
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    </span>
                     <node-button class="node-button-small" node="edge.tail"></node-button>
                 </div>
             </div>
