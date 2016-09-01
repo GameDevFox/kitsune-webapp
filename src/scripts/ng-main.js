@@ -66,7 +66,7 @@ mod.component("nodeName", {
         };
         $scope.$watch(() => ctrl.node, function(val) {
             ctrl.id = _.truncate(val, {
-                length: 16,
+                length: 9,
                 omission: '*'
             });
             getName(val).then(name => {
