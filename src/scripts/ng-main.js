@@ -2,6 +2,37 @@ console.log("Hello Kitsune");
 
 let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
 
+let isBlank = function(value) {
+    return _.isString(value) ? _.isEmpty(value.trim()) : _.isEmpty(value);
+};
+
+let mount = function(obj, path, value) {
+    if(isBlank(path))
+        throw new Error("Empty mount path");
+
+    let parts = path.split(".");
+
+    let mountPoint = obj;
+    while(parts.length > 1) {
+        let part = parts.shift();
+        if(!mountPoint[part])
+            mountPoint[part] = {};
+
+        mountPoint = mountPoint[part];
+    }
+
+    let lastPart = parts[0];
+    mountPoint[lastPart] = value;
+    return value;
+};
+
+let mountP = function(obj, path) {
+    return function(value) {
+        mount(obj, path, value);
+        return value;
+    };
+};
+
 mod.controller("kitsune", function($stateParams, kitsuneService) {
 
     this.node = $stateParams.id;
@@ -53,13 +84,6 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
     return service;
 });
 
-mod.controller("NodeCtrl", function($scope, $attrs) {
-    let ctrl = this;
-    $attrs.$observe("node", function(value) {
-        ctrl.id = value;
-    });
-});
-
 mod.component("nodeName", {
     template: "<span ng-class='vm.name ? \"name\" : \"\"'>{{ vm.name || vm.id }}</span>",
     controller: function(kitsuneService, $scope, $attrs) {
@@ -72,9 +96,7 @@ mod.component("nodeName", {
                 length: 9,
                 omission: '*'
             });
-            getName(val).then(name => {
-                ctrl.name = name;
-            });
+            getName(val).then(mountP(ctrl, "name"));
         });
     },
     controllerAs: "vm",
@@ -85,7 +107,7 @@ mod.component("nodeButton", {
     templateUrl: 'templates/node-button.html',
     controller: function(kitsuneService) {
         let ctrl = this;
-        kitsuneService.describeNode(ctrl.node).then(r => ctrl.desc = r);
+        kitsuneService.describeNode(ctrl.node).then(mountP(ctrl, "desc"));
     },
     controllerAs: "vm",
     bindings: { node: "<" }
@@ -103,7 +125,7 @@ mod.component("nodeDetails", {
         });
 
         ctrl.loadNames = () => {
-            kitsuneService.listNames(ctrl.node).then(r => ctrl.nameList = r);
+            kitsuneService.listNames(ctrl.node).then(mountP(ctrl, "nameList"));
         };
 
         ctrl.addName = () => {
@@ -114,11 +136,13 @@ mod.component("nodeDetails", {
             kitsuneService.unname(ctrl.node, name).then(ctrl.loadNames);
         };
 
-        ctrl.addHead = head => {
-            kitsuneService.addEdge(head, ctrl.node).then(ctrl.load);
+        ctrl.addHead = () => {
+            kitsuneService.addEdge(ctrl.newHead, ctrl.node).then(ctrl.load);
+            ctrl.newHead = null;
         };
-        ctrl.addTail = tail => {
-            kitsuneService.addEdge(ctrl.node, tail).then(ctrl.load);
+        ctrl.addTail = () => {
+            kitsuneService.addEdge(ctrl.node, ctrl.newTail).then(ctrl.load);
+            ctrl.newTail = null;
         };
         ctrl.removeEdge = edge => {
             kitsuneService.removeEdge(edge).then(ctrl.load);
@@ -128,14 +152,14 @@ mod.component("nodeDetails", {
             let node = ctrl.node;
 
             ctrl.loadNames();
-            kitsuneService.getHeads(ctrl.node).then(r => ctrl.heads = r);
-            kitsuneService.getTails(ctrl.node).then(r => ctrl.tails = r);
+            kitsuneService.getHeads(ctrl.node).then(mountP(ctrl, "heads"));
+            kitsuneService.getTails(ctrl.node).then(mountP(ctrl, "tails"));
             kitsuneService.describeNode(ctrl.node).then(nodeDesc => {
                 ctrl.nodeDesc = nodeDesc;
                 if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
-                    kitsuneService.readEdge(ctrl.node).then(r => ctrl.edge = r);
+                    kitsuneService.readEdge(ctrl.node).then(mountP(ctrl, "edge"));
                 if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
-                    kitsuneService.getStringValue(ctrl.node).then(r => ctrl.stringValue = r);
+                    kitsuneService.getStringValue(ctrl.node).then(mountP(ctrl, "stringValue"));
             });
         };
         $scope.$watch(() => { ctrl.node }, ctrl.load);

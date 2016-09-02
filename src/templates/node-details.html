@@ -62,7 +62,7 @@
                         <i class="fa fa-times-circle" aria-hidden="true"></i>
                     </button>
                 </div>
-                <input ng-model="head"><button ng-click="vm.addHead(head)">Add</button>
+                <input ng-model="vm.newHead"><button ng-click="vm.addHead()">Add</button>
             </div>
 
             <div class="tails" ng-if="vm.tails.length">
@@ -79,7 +79,7 @@
                         <i class="fa fa-times-circle" aria-hidden="true"></i>
                     </button>
                 </div>
-                <input ng-model="tail"><button ng-click="vm.addTail(tail)">Add</button>
+                <input ng-model="vm.newTail"><button ng-click="vm.addTail()">Add</button>
             </div>
         </div>
     <div>
