@@ -2,37 +2,6 @@ console.log("Hello Kitsune");
 
 let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
 
-let isBlank = function(value) {
-    return _.isString(value) ? _.isEmpty(value.trim()) : _.isEmpty(value);
-};
-
-let mount = function(obj, path, value) {
-    if(isBlank(path))
-        throw new Error("Empty mount path");
-
-    let parts = path.split(".");
-
-    let mountPoint = obj;
-    while(parts.length > 1) {
-        let part = parts.shift();
-        if(!mountPoint[part])
-            mountPoint[part] = {};
-
-        mountPoint = mountPoint[part];
-    }
-
-    let lastPart = parts[0];
-    mountPoint[lastPart] = value;
-    return value;
-};
-
-let mountP = function(obj, path) {
-    return function(value) {
-        mount(obj, path, value);
-        return value;
-    };
-};
-
 mod.controller("kitsune", function($stateParams, kitsuneService) {
 
     this.node = $stateParams.id;
@@ -96,7 +65,7 @@ mod.component("nodeName", {
                 length: 9,
                 omission: '*'
             });
-            getName(val).then(mountP(ctrl, "name"));
+            getName(val).then(_.mountP(ctrl, "name"));
         });
     },
     controllerAs: "vm",
@@ -107,7 +76,7 @@ mod.component("nodeButton", {
     templateUrl: 'templates/node-button.html',
     controller: function(kitsuneService) {
         let ctrl = this;
-        kitsuneService.describeNode(ctrl.node).then(mountP(ctrl, "desc"));
+        kitsuneService.describeNode(ctrl.node).then(_.mountP(ctrl, "desc"));
     },
     controllerAs: "vm",
     bindings: { node: "<" }
@@ -125,7 +94,7 @@ mod.component("nodeDetails", {
         });
 
         ctrl.loadNames = () => {
-            kitsuneService.listNames(ctrl.node).then(mountP(ctrl, "nameList"));
+            kitsuneService.listNames(ctrl.node).then(_.mountP(ctrl, "nameList"));
         };
 
         ctrl.addName = () => {
@@ -152,12 +121,12 @@ mod.component("nodeDetails", {
             let node = ctrl.node;
 
             ctrl.loadNames();
-            kitsuneService.getHeads(ctrl.node).then(mountP(ctrl, "heads"));
-            kitsuneService.getTails(ctrl.node).then(mountP(ctrl, "tails"));
+            kitsuneService.getHeads(ctrl.node).then(_.mountP(ctrl, "heads"));
+            kitsuneService.getTails(ctrl.node).then(_.mountP(ctrl, "tails"));
             kitsuneService.describeNode(ctrl.node).then(nodeDesc => {
                 ctrl.nodeDesc = nodeDesc;
                 if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
-                    kitsuneService.readEdge(ctrl.node).then(mountP(ctrl, "edge"));
+                    kitsuneService.readEdge(ctrl.node).then(_.mountP(ctrl, "edge"));
                 if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
                     kitsuneService.getStringValue(ctrl.node).then(mountP(ctrl, "stringValue"));
             });

@@ -15,10 +15,17 @@ gulp.task("default", ["build"]);
 
 gulp.task("build", ["build-html", "build-scripts", "build-styles", "build-templates", "build-views"]);
 
-gulp.task("build-html", function() {
+gulp.task("build-html", ["wiredep", "build-scripts"], function() {
+    return gulp.src("./app/index.html")
+        .pipe(g.inject(gulp.src("./app/scripts/**/*.js"), { ignorePath: "./app", relative: true }))
+        .pipe(gulp.dest("./app"));
+});
+
+gulp.task("wiredep", function() {
     return gulp.src("./src/index.html")
         .pipe(wiredep({ ignorePath: "../" }))
         .pipe(gulp.dest("./app/"));
+
 });
 
 gulp.task("build-scripts", function() {

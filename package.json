@@ -24,6 +24,7 @@
     "gulp-cached": "^1.1.0",
     "gulp-debug": "^2.1.2",
     "gulp-file-contents-to-json": "^0.1.2",
+    "gulp-inject": "^4.1.0",
     "gulp-jshint": "^2.0.0",
     "gulp-load-plugins": "^1.1.0",
     "gulp-plumber": "^1.0.1",

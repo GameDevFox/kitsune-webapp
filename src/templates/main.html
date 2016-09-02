@@ -4,15 +4,6 @@
         <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
     </div>
 
-    <!-- <button ng-click="xVal = 10">Set to 10</button>
-    <button ng-click="xVal = 20">Set to 20</button>
-
-    [{{ xVal }}]
-
-    <div ng-controller="NodeCtrl as node" node="{{ xVal + 100 }}">
-        <div> Node Id: {{ node.id }} </div>
-    </div> -->
-
     <node-details ng-if="vm.node" node="vm.node"></node-details>
 
     <a href="#" ng-init="showGraph=false" ng-click="showGraph=!showGraph"/>{{ showGraph ? "Hide" : "Show" }}</a>
