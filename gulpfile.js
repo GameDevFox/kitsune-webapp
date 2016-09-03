@@ -4,6 +4,7 @@ var gulpLoadPlugins = require("gulp-load-plugins");
 var browserSync = require("browser-sync").create();
 var jshintStylish = require("jshint-stylish");
 var wiredep = require("wiredep").stream;
+let del = require("del");
 
 var g = gulpLoadPlugins({
     rename: {
@@ -11,21 +12,19 @@ var g = gulpLoadPlugins({
     }
 });
 
+gulp.task("clean", function() {
+    del("./app");
+});
+
 gulp.task("default", ["build"]);
 
 gulp.task("build", ["build-html", "build-scripts", "build-styles", "build-templates", "build-views"]);
 
-gulp.task("build-html", ["wiredep", "build-scripts"], function() {
-    return gulp.src("./app/index.html")
-        .pipe(g.inject(gulp.src("./app/scripts/**/*.js"), { ignorePath: "./app", relative: true }))
-        .pipe(gulp.dest("./app"));
-});
-
-gulp.task("wiredep", function() {
+gulp.task("build-html", ["build-scripts"], function() {
     return gulp.src("./src/index.html")
         .pipe(wiredep({ ignorePath: "../" }))
-        .pipe(gulp.dest("./app/"));
-
+        .pipe(g.inject(gulp.src("./app/scripts/**/*.js"), { ignorePath: "../app", relative: true }))
+        .pipe(gulp.dest("./app"));
 });
 
 gulp.task("build-scripts", function() {
