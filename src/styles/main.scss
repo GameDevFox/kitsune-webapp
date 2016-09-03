@@ -73,6 +73,9 @@ node-button.node-button-small a {
 
                 .heads,.tails {
                     margin-top: 10px;
+
+                    .list { margin-bottom: 5px; }
+
                     .this {
                         color: white;
                         font-weight: bold;
@@ -80,6 +83,7 @@ node-button.node-button-small a {
                         padding: 0 5px;
                         border-radius: 3px;
                     }
+
                     i.fa {
                         margin: 0 5px;
                     }

@@ -50,7 +50,7 @@
 
             <div class="heads" ng-if="vm.heads.length">
                 <div class="header">Heads</div>
-                <div  ng-repeat="edge in vm.heads">
+                <div class="list" ng-repeat="edge in vm.heads">
                     <node-button class="node-button-small" node="edge.head"></node-button>
                     <span ng-show="vm.showEdges">
                         <i class="fa fa-caret-right" aria-hidden="true"></i>
@@ -62,12 +62,14 @@
                         <i class="fa fa-times-circle" aria-hidden="true"></i>
                     </button>
                 </div>
-                <input ng-model="vm.newHead"><button ng-click="vm.addHead()">Add</button>
+                <input ng-model="vm.newHead" placeholder="Head">
+                <button ng-click="vm.mkid('newHead')">New</button>
+                <button ng-click="vm.addHead()">Add</button>
             </div>
 
             <div class="tails" ng-if="vm.tails.length">
                 <div class="header">Tails</div>
-                <div ng-repeat="edge in vm.tails">
+                <div class="list" ng-repeat="edge in vm.tails">
                     <span ng-show="vm.showEdges">
                         <span class="this">THIS</span>
                         <i class="fa fa-caret-right" aria-hidden="true"></i>
@@ -79,7 +81,9 @@
                         <i class="fa fa-times-circle" aria-hidden="true"></i>
                     </button>
                 </div>
-                <input ng-model="vm.newTail"><button ng-click="vm.addTail()">Add</button>
+                <input ng-model="vm.newTail" placeholder="Tail">
+                <button ng-click="vm.mkid('newTail')">New</button>
+                <button ng-click="vm.addTail()">Add</button>
             </div>
         </div>
     <div>

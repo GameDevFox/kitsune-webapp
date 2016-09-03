@@ -123,6 +123,9 @@ mod.component("nodeDetails", {
         ctrl.removeEdge = edge => {
             kitsuneService.removeEdge(edge).then(ctrl.load);
         };
+        ctrl.mkid = prop => {
+            kitsuneService.mkid().then(_.mountP(ctrl, prop));
+        };
 
         ctrl.load = () => {
             let node = ctrl.node;
