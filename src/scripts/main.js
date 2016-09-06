@@ -20,9 +20,8 @@
                 let mDataTime = moment(dataTime, "x");
                 let mSyncTime = moment(syncTime, "x");
 
-                if(mSyncTime.isAfter(mDataTime))
-                    // Up to date
-                    outOfDate = null;
+                if(syncTime > dataTime)
+                    outOfDate = null; // Up to date
                 else
                     outOfDate = mSyncTime.from(mDataTime, true);
             });

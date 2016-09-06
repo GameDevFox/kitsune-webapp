@@ -37,6 +37,16 @@ node-button.node-button-small a {
 
     .header { font-weight: bold; }
 
+    .data-sync {
+        font-size: x-large;
+        margin: auto 0;
+
+        &.out-of-date {
+            color: red;
+            font-weight: bold;
+        }
+    }
+
     .savePanel {
         display: flex;
         justify-content: space-between;
