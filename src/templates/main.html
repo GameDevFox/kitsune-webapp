@@ -1,7 +1,11 @@
 <div class="container-fluid">
     <div class="savePanel">
         <md-button class="md-raised md-primary" ui-sref="node-view({ id: '7f82d45a6ffb5c345f84237a621de35dd8b7b0e3' })">core-node</md-button>
-        <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+
+        <div>
+            <md-button class="md-raised md-primary" ng-click="vm.load()">Load</md-button>
+            <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        </div>
     </div>
 
     <node-details ng-if="vm.node" node="vm.node"></node-details>

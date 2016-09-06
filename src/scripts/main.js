@@ -14,6 +14,7 @@ mod.controller("kitsune", function($stateParams, kitsuneService) {
     this.node = $stateParams.id;
 
     this.log = (msg) => console.log(msg);
+    this.load = () => kitsuneService.load().then(() => console.log("Load"));
     this.save = () => kitsuneService.save().then(() => console.log("Saved!"));
     // let nodeId = "7f82d45a6ffb5c345f84237a621de35dd8b7b0e3";
 });
@@ -53,6 +54,7 @@ mod.factory("kitsuneService", function($http, kitsuneUrl) {
         addEdge: (head, tail) => mkCall("f7b073eb5ef5680e7ba308eaf289de185f0ec3f7", { head, tail }),
         removeEdge: (edge) => mkCall("c2d807f302ca499c3584a8ccf04fb7a76cf589ad", edge),
 
+        load: () => mkCall("d575ab0a08a412215384e34ccbf363e960f3b392"),
         save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
 
         log: (msg) =>  { console.log(msg); }
