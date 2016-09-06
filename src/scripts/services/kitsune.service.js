@@ -39,7 +39,9 @@
             addEdge: (head, tail) => mkCall("f7b073eb5ef5680e7ba308eaf289de185f0ec3f7", { head, tail }),
             removeEdge: (edge) => mkCall("c2d807f302ca499c3584a8ccf04fb7a76cf589ad", edge),
 
-            getDataTime: () => mkCall("d5e195726a6a3650166a6591dc3d7619adaef98d"), 
+            getDataTime: () => mkCall("d5e195726a6a3650166a6591dc3d7619adaef98d"),
+            getSyncTime: () => mkCall("9a3a7c56e96abc04bd92f63cdfc5f31d49f778cd"),
+
             load: () => mkCall("d575ab0a08a412215384e34ccbf363e960f3b392"),
             save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
 

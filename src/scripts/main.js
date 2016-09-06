@@ -4,17 +4,46 @@
 
     let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
 
+    let outOfDate;
+    let checkDataSync;
+
     mod.run(($interval, kitsuneService) => {
         console.log("Hello Kitsune");
+
+        checkDataSync = () => {
+            console.log("Check Sync");
+
+            let dataTimeP = kitsuneService.getDataTime();
+            let syncTimeP = kitsuneService.getSyncTime();
+
+            Promise.all([dataTimeP, syncTimeP]).then(([dataTime, syncTime]) => {
+                let mDataTime = moment(dataTime, "x");
+                let mSyncTime = moment(syncTime, "x");
+
+                if(mSyncTime.isAfter(mDataTime))
+                    // Up to date
+                    outOfDate = null;
+                else
+                    outOfDate = mSyncTime.from(mDataTime, true);
+            });
+        };
+        checkDataSync();
+
+        window.onfocus = checkDataSync;
+
+        // $interval(checkDataSync, 15000);
     });
 
     mod.controller("kitsune", function($stateParams, $rootScope, kitsuneService) {
 
         this.node = $stateParams.id;
 
+        this.getOutOfDate = () => outOfDate;
+
         this.log = (msg) => console.log(msg);
         this.save = () => kitsuneService.save().then(() => console.log("Saved!"));
         this.load = () => kitsuneService.load().then(() => {
+            checkDataSync();
             $rootScope.$broadcast("refresh-node-details");
             console.log("Load")
         });
@@ -98,7 +127,7 @@
                     if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
                         kitsuneService.readEdge(ctrl.node).then(_.mountP(ctrl, "edge"));
                     if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
-                        kitsuneService.getStringValue(ctrl.node).then(mountP(ctrl, "stringValue"));
+                        kitsuneService.getStringValue(ctrl.node).then(_.mountP(ctrl, "stringValue"));
                 });
             };
 
