@@ -9,12 +9,15 @@ let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
 //     });
 // });
 
-mod.controller("kitsune", function($stateParams, kitsuneService) {
+mod.controller("kitsune", function($stateParams, $rootScope, kitsuneService) {
 
     this.node = $stateParams.id;
 
     this.log = (msg) => console.log(msg);
-    this.load = () => kitsuneService.load().then(() => console.log("Load"));
+    this.load = () => kitsuneService.load().then(() => {
+        $rootScope.$broadcast("refresh-node-details");
+        console.log("Load")
+    });
     this.save = () => kitsuneService.save().then(() => console.log("Saved!"));
     // let nodeId = "7f82d45a6ffb5c345f84237a621de35dd8b7b0e3";
 });
@@ -143,7 +146,9 @@ mod.component("nodeDetails", {
                     kitsuneService.getStringValue(ctrl.node).then(mountP(ctrl, "stringValue"));
             });
         };
+
         $scope.$watch(() => { ctrl.node }, ctrl.load);
+        $scope.$on("refresh-node-details", ctrl.load);
     },
     controllerAs: "vm",
     bindings: { node: "<" }
