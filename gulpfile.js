@@ -28,7 +28,7 @@ gulp.task("build-html", ["build-scripts"], function() {
 });
 
 gulp.task("build-scripts", function() {
-    return gulp.src("src/scripts/*.js")
+    return gulp.src("src/scripts/**/*.js")
         .pipe(g.cached("build"))
         .pipe(g.plumber())
         .pipe(g.debug({ title: "build" }))
