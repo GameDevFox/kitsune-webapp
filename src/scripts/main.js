@@ -7,7 +7,7 @@
     let outOfDate;
     let checkDataSync;
 
-    mod.run(($interval, kitsuneService) => {
+    mod.run(($interval, $rootScope, kitsuneService) => {
         console.log("Hello Kitsune");
 
         checkDataSync = () => {
@@ -24,13 +24,13 @@
                     outOfDate = null; // Up to date
                 else
                     outOfDate = mSyncTime.from(mDataTime, true);
+
+                $rootScope.$digest();
             });
         };
         checkDataSync();
 
         window.onfocus = checkDataSync;
-
-        // $interval(checkDataSync, 15000);
     });
 
     mod.controller("kitsune", function($stateParams, $rootScope, kitsuneService) {
