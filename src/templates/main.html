@@ -1,6 +1,16 @@
 <div class="container-fluid">
     <div class="savePanel">
-        <md-button class="md-raised md-primary" ui-sref="node-view({ id: '7f82d45a6ffb5c345f84237a621de35dd8b7b0e3' })">core-node</md-button>
+        <div>
+            <md-button class="md-raised md-primary" ui-sref="node-view({ id: '7f82d45a6ffb5c345f84237a621de35dd8b7b0e3' })">core-node</md-button>
+        </div>
+
+        <md-switch ng-model="vm.showEdges" aria-label="Show Edges">
+            Show Edges
+        </md-switch>
+
+        <md-switch ng-model="vm.showNames" aria-label="Show Names">
+            Show Names
+        </md-switch>
 
         <div class="data-sync" ng-class="vm.getOutOfDate() ? 'out-of-date' : 'up-to-date'">
             {{ vm.getOutOfDate() ? "Out of date: " + vm.getOutOfDate() : "Up to Date" }}

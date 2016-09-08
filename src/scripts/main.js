@@ -33,15 +33,31 @@
         window.onfocus = checkDataSync;
     });
 
-    mod.controller("kitsune", function($stateParams, $rootScope, kitsuneService) {
+    mod.controller("kitsune", function($stateParams, $rootScope, $scope, kitsuneService) {
 
-        this.node = $stateParams.id;
+        let vm = this;
 
-        this.getOutOfDate = () => outOfDate;
+        vm.node = $stateParams.id;
 
-        this.log = (msg) => console.log(msg);
-        this.save = () => kitsuneService.save().then(() => console.log("Saved!"));
-        this.load = () => kitsuneService.load().then(() => {
+        vm.showEdges = true;
+        $rootScope.$broadcast("show-edges", vm.showEdges);
+        $scope.$watch("vm.showEdges", (value) => {
+            vm.showEdges = value;
+            $rootScope.$broadcast("show-edges", vm.showEdges);
+        });
+
+        vm.showNames = true;
+        $rootScope.$broadcast("show-names", vm.showNames);
+        $scope.$watch("vm.showNames", (value) => {
+            vm.showNames = value;
+            $rootScope.$broadcast("show-names", vm.showNames);
+        });
+
+        vm.getOutOfDate = () => outOfDate;
+
+        vm.log = (msg) => console.log(msg);
+        vm.save = () => kitsuneService.save().then(() => console.log("Saved!"));
+        vm.load = () => kitsuneService.load().then(() => {
             checkDataSync();
             $rootScope.$broadcast("refresh-node-details");
             console.log("Load")
@@ -49,9 +65,15 @@
     });
 
     mod.component("nodeName", {
-        template: "<span ng-class='vm.name ? \"name\" : \"\"'>{{ vm.name || vm.id }}</span>",
+        template: "<span ng-class='vm.name ? \"name\" : \"\"'>{{ vm.name && vm.showNames ? vm.name : vm.id }}</span>",
         controller: function(kitsuneService, $scope, $attrs) {
             let ctrl = this;
+
+            ctrl.showNames = true;
+            $scope.$on("show-names", function(e, value) {
+                ctrl.showNames = value;
+            });
+
             let getName = function(value) {
                 return kitsuneService.listNames(value).then(x => x[0]);
             };
@@ -77,15 +99,15 @@
         bindings: { node: "<" }
     });
 
-    let showEdges = true;
     mod.component("nodeDetails", {
         templateUrl: "templates/node-details.html",
         controller: function(kitsuneService, $scope) {
             let ctrl = this;
 
-            ctrl.showEdges = showEdges;
-            $scope.$watch("vm.showEdges", (value) => {
-                showEdges = value;
+            ctrl.showEdges = true;
+            $scope.$on("show-edges", function(e, value) {
+                console.log("Hello");
+                ctrl.showEdges = value;
             });
 
             ctrl.loadNames = () => {
