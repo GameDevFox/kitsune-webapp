@@ -80,7 +80,7 @@ gulp.task("watch", ["build"], function(done) {
 
 gulp.task("run-watch", function() {
     gulp.watch("src/index.html", ["build-html"]);
-    gulp.watch("src/scripts/*.js", ["build-scripts"]);
+    gulp.watch("src/scripts/**/*.js", ["build-scripts"]);
     gulp.watch("src/styles/*.scss", ["build-styles"]);
     gulp.watch("src/templates/*", ["build-templates"]);
     gulp.watch("src/views/*", ["build-views"]);
