@@ -4,41 +4,6 @@
 
     let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
 
-    mod.component("nodeName", {
-        template: "<span ng-class='vm.name ? \"name\" : \"\"'>{{ vm.name && vm.showNames ? vm.name : vm.id }}</span>",
-        controller: function(kitsuneService, $scope, $attrs) {
-            let ctrl = this;
-
-            ctrl.showNames = true;
-            $scope.$on("show-names", function(e, value) {
-                ctrl.showNames = value;
-            });
-
-            let getName = function(value) {
-                return kitsuneService.listNames(value).then(x => x[0]);
-            };
-            $scope.$watch(() => ctrl.node, function(val) {
-                ctrl.id = _.truncate(val, {
-                    length: 9,
-                    omission: '*'
-                });
-                getName(val).then(_.mountP(ctrl, "name"));
-            });
-        },
-        controllerAs: "vm",
-        bindings: { node: "<" }
-    });
-
-    mod.component("nodeButton", {
-        templateUrl: 'templates/node-button.html',
-        controller: function(kitsuneService) {
-            let ctrl = this;
-            kitsuneService.describeNode(ctrl.node).then(_.mountP(ctrl, "desc"));
-        },
-        controllerAs: "vm",
-        bindings: { node: "<" }
-    });
-
     mod.component("nodeDetails", {
         templateUrl: "templates/node-details.html",
         controller: function(kitsuneService, $scope) {
@@ -97,18 +62,6 @@
         },
         controllerAs: "vm",
         bindings: { node: "<" }
-    });
-
-    mod.filter("desc", function() {
-        return value => value ? _.map(value, v => "t"+v).join(" ") : null;
-    });
-
-    mod.filter("type", function() {
-        return value => typeof value;
-    });
-
-    mod.filter("contains", function() {
-        return (input, value) => input ? input.includes(value) : null;
     });
 
     // CONFIG //
