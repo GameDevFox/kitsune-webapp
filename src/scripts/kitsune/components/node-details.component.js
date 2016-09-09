@@ -45,11 +45,19 @@
             ctrl.load = () => {
                 let node = ctrl.node;
 
+                ctrl.tailTypes = {};
+
                 ctrl.loadNames();
                 kitsuneService.getHeads(ctrl.node).then(_.mountP(ctrl, "heads"));
-                kitsuneService.getTails(ctrl.node).then(_.mountP(ctrl, "tails"));
-                kitsuneService.describeNode(ctrl.node).then(nodeDesc => {
-                    ctrl.nodeDesc = nodeDesc;
+                kitsuneService.getTails(ctrl.node).then(_.mountP(ctrl, "tails")).then(tails => {
+                    tails.forEach(tail => {
+                        kitsuneService.factor({ head: tail.head, tail: tail.tail }).then(types => {
+                            let typeNodes = types.map(type => type.type);
+                            ctrl.tailTypes[tail.tail] = typeNodes;
+                        });
+                    });
+                });
+                kitsuneService.describeNode(ctrl.node).then(_.mountP(ctrl, "nodeDesc")).then(nodeDesc => {
                     if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
                         kitsuneService.readEdge(ctrl.node).then(_.mountP(ctrl, "edge"));
                     if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string

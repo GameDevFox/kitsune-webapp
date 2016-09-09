@@ -59,6 +59,14 @@ node-button.node-button-small a {
 
     node-details {
 
+        .this {
+            color: white;
+            font-weight: bold;
+            background-color: black;
+            padding: 0 5px;
+            border-radius: 3px;
+        }
+
         md-toolbar .name button {
             border: none;
             background: none;
@@ -90,14 +98,6 @@ node-button.node-button-small a {
                     margin-top: 10px;
 
                     .list { margin-bottom: 5px; }
-
-                    .this {
-                        color: white;
-                        font-weight: bold;
-                        background-color: black;
-                        padding: 0 5px;
-                        border-radius: 3px;
-                    }
 
                     i.fa {
                         margin: 0 5px;
