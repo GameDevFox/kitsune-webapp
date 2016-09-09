@@ -96,11 +96,13 @@ node-button.node-button-small a {
 
                 .heads,.tails {
                     margin-top: 10px;
-
                     .list { margin-bottom: 5px; }
+                    i.fa { margin: 0 5px; }
 
-                    i.fa {
-                        margin: 0 5px;
+                    .types {
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        border-bottom: 2px solid gray;
                     }
 
                     button.remove {
