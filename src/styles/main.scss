@@ -21,16 +21,21 @@ node-name {
     }
 }
 
-a.md-raised {
-    // &.t39bedcfba59c016590ddd53ddc7d89268b5340fd { background-color: blue; color: white; }
-    // &.t821f1f34a4998adf0f1efd9b772b57efef71a070 { background-color: green; color: white; }
+node-button a {
+    text-transform: inherit;
 }
 
 node-button.node-button-small a {
     margin: 0px;
     min-height: 19px;
     line-height: 18px;
+    text-transform: inherit;
     .md-ripple-container { height: 19px; }
+
+    // is-string
+    &.t821f1f34a4998adf0f1efd9b772b57efef71a070 {
+        border: 2px solid green;
+    }
 }
 
 .main {
