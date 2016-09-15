@@ -1,0 +1,64 @@
+.main node-details {
+
+    .this {
+        color: white;
+        font-weight: bold;
+        background-color: black;
+        padding: 0 5px;
+        border-radius: 3px;
+    }
+
+    md-toolbar .name button {
+        border: none;
+        background: none;
+        color: black;
+    }
+
+    .name-entry { margin: 5px 0; }
+
+    .contents {
+
+        display: flex;
+        flex-direction: column;
+
+        & > * { padding-right: 5px; }
+
+        .header {
+            font-weight: bold;
+            border-bottom: 4px solid gray;// #2196F3;
+        }
+
+        .lower-pane {
+
+            display: flex;
+            flex-direction: row;
+
+            & > * { margin-right: 20px; }
+
+            .heads,.tails {
+                margin-top: 10px;
+                .list { margin-bottom: 5px; }
+                i.fa { margin: 0 5px; }
+
+                .types {
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    border-bottom: 2px solid gray;
+                }
+
+                button.remove {
+                    border: none;
+                    background: none;
+                    color: red;
+                }
+            }
+        }
+    }
+
+    node-name { font-weight: bold; }
+
+    div.md-toolbar-tools {
+        display: flex;
+        justify-content: space-between;
+    }
+}

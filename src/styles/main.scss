@@ -1,43 +1,3 @@
-.nameButtons {
-    button { margin: 5px 10px 5px 0px; }
-}
-
-node-view .name { margin: 0 2px; }
-
-node-name {
-    display: inline-block;
-    padding-left: 5px;
-    padding-right: 5px;
-
-    span {
-        font-family: monospace;
-        font-weight: initial;
-        color: gray;
-        &.name {
-            font-family: initial;
-            font-weight: bold;
-            color: black;
-        }
-    }
-}
-
-node-button a {
-    text-transform: inherit;
-}
-
-node-button.node-button-small a {
-    margin: 0px;
-    min-height: 19px;
-    line-height: 18px;
-    text-transform: inherit;
-    .md-ripple-container { height: 19px; }
-
-    // is-string
-    &.t821f1f34a4998adf0f1efd9b772b57efef71a070 {
-        border: 2px solid green;
-    }
-}
-
 .main {
 
     .header { font-weight: bold; }
@@ -56,81 +16,10 @@ node-button.node-button-small a {
         display: flex;
         justify-content: space-between;
     }
-
-    node-details {
-
-        .this {
-            color: white;
-            font-weight: bold;
-            background-color: black;
-            padding: 0 5px;
-            border-radius: 3px;
-        }
-
-        md-toolbar .name button {
-            border: none;
-            background: none;
-            color: black;
-        }
-
-        .name-entry { margin: 5px 0; }
-
-        .contents {
-
-            display: flex;
-            flex-direction: column;
-
-            & > * { padding-right: 5px; }
-
-            .header {
-                font-weight: bold;
-                border-bottom: 4px solid gray;// #2196F3;
-            }
-
-            .lower-pane {
-
-                display: flex;
-                flex-direction: row;
-
-                & > * { margin-right: 20px; }
-
-                .heads,.tails {
-                    margin-top: 10px;
-                    .list { margin-bottom: 5px; }
-                    i.fa { margin: 0 5px; }
-
-                    .types {
-                        padding-top: 5px;
-                        padding-bottom: 5px;
-                        border-bottom: 2px solid gray;
-                    }
-
-                    button.remove {
-                        border: none;
-                        background: none;
-                        color: red;
-                    }
-                }
-            }
-        }
-
-        node-name { font-weight: bold; }
-
-        div.md-toolbar-tools {
-            display: flex;
-            justify-content: space-between;
-        }
-    }
-}
-.node-id {
-    font-weight: bold;
-    font-family: monospace;
 }
 
-.graphContainer {
-    border: 1px solid black;
-    margin-top: 5px;
-    margin-bottom: 20px;
+@import "node-button";
+@import "node-details";
+@import "node-name";
 
-    .graph { height: 600px; }
-}
+@import "graph-container";

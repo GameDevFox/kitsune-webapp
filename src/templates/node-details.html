@@ -43,9 +43,9 @@
 
     <div class="lower-pane">
 
-        <div>
+        <div class="heads-and-tails">
 
-            <div class="heads" ng-if="vm.heads.length">
+            <div class="heads">
                 <div class="header">Heads</div>
                 <div class="list" ng-repeat="edge in vm.heads">
                     <node-button class="node-button-small" node="edge.head"></node-button>
@@ -64,7 +64,7 @@
                 <button ng-click="vm.addHead()">Add</button>
             </div>
 
-            <div class="tails" ng-if="vm.tails.length">
+            <div class="tails">
                 <div class="header">Tails</div>
                 <div class="list" ng-repeat="edge in vm.tails">
                     <span ng-show="vm.showEdges">

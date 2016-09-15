@@ -1,0 +1,16 @@
+node-name {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    span {
+        font-family: monospace;
+        font-weight: initial;
+        color: gray;
+        &.name {
+            font-family: initial;
+            font-weight: bold;
+            color: black;
+        }
+    }
+}
