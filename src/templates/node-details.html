@@ -41,51 +41,55 @@
         <span ng-if="!vm.nodeDesc.length">None</span>
     </div>
 
-    <div class="lower-pane">
+        <a href="#" ng-init="showHeadsAndTails = true" ng-click="showHeadsAndTails = !showHeadsAndTails">
+            {{ showHeadsAndTails ? "Show" : "Hide" }} Heads and Tails
+        </a>
+        <div ng-show="showHeadsAndTails" class="heads-and-tails">
 
-        <div class="heads-and-tails">
-
-            <div class="heads">
-                <div class="header">Heads</div>
-                <div class="list" ng-repeat="edge in vm.heads">
-                    <node-button class="node-button-small" node="edge.head"></node-button>
-                    <span ng-show="vm.showEdges">
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <node-button class="node-button-small" node="edge.id"></node-button>
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <span class="this">THIS</span>
-                    </span>
-                    <button class="remove" ng-click="vm.removeEdge(edge.id)">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
-                </div>
-                <input ng-model="vm.newHead" placeholder="Head">
+        <div class="heads">
+            <div class="header">Heads</div>
+            <div class="list" ng-repeat="edge in vm.heads">
+                <node-button class="node-button-small" node="edge.head"></node-button>
+                <span ng-show="vm.showEdges">
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <node-button class="node-button-small" node="edge.id"></node-button>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <span class="this">THIS</span>
+                </span>
+                <button class="remove" ng-click="vm.removeEdge(edge.id)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <input ng-model="vm.newHead" placeholder="Head">
+            <div>
                 <button ng-click="vm.mkid('newHead')">New</button>
                 <button ng-click="vm.addHead()">Add</button>
             </div>
+        </div>
 
-            <div class="tails">
-                <div class="header">Tails</div>
-                <div class="list" ng-repeat="edge in vm.tails">
-                    <span ng-show="vm.showEdges">
-                        <span class="this">THIS</span>
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <node-button class="node-button-small" node="edge.id"></node-button>
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                    </span>
-                    <node-button class="node-button-small" node="edge.tail"></node-button>
-                    <button class="remove" ng-click="vm.removeEdge(edge.id)">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
-                    <div class="types" ng-if="vm.tailTypes[edge.tail].length">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        <node-button class="node-button-small" ng-repeat="type in vm.tailTypes[edge.tail]" node="type"></node-button>
-                    </div>
+        <div class="tails">
+            <div class="header">Tails</div>
+            <div class="list" ng-repeat="edge in vm.tails">
+                <span ng-show="vm.showEdges">
+                    <span class="this">THIS</span>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <node-button class="node-button-small" node="edge.id"></node-button>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </span>
+                <node-button class="node-button-small" node="edge.tail"></node-button>
+                <button class="remove" ng-click="vm.removeEdge(edge.id)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+                <div class="types" ng-if="vm.tailTypes[edge.tail].length">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <node-button class="node-button-small" ng-repeat="type in vm.tailTypes[edge.tail]" node="type"></node-button>
                 </div>
-                <input ng-model="vm.newTail" placeholder="Tail">
+            </div>
+            <input ng-model="vm.newTail" placeholder="Tail">
+            <div>
                 <button ng-click="vm.mkid('newTail')">New</button>
                 <button ng-click="vm.addTail()">Add</button>
             </div>
         </div>
-    <div>
+    </div>
 </div>

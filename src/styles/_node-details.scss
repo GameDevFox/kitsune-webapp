@@ -1,5 +1,14 @@
 .main node-details {
 
+    .heads-and-tails {
+        display: flex;
+        flex-direction: row;
+
+        & > * {
+            margin-right: 20px;
+        }
+    }
+
     .this {
         color: white;
         font-weight: bold;
@@ -28,29 +37,24 @@
             border-bottom: 4px solid gray;// #2196F3;
         }
 
-        .lower-pane {
 
-            display: flex;
-            flex-direction: row;
+        & > * { margin-right: 20px; }
 
-            & > * { margin-right: 20px; }
+        .heads,.tails {
+            margin-top: 10px;
+            .list { margin-bottom: 5px; }
+            i.fa { margin: 0 5px; }
 
-            .heads,.tails {
-                margin-top: 10px;
-                .list { margin-bottom: 5px; }
-                i.fa { margin: 0 5px; }
+            .types {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                border-bottom: 2px solid gray;
+            }
 
-                .types {
-                    padding-top: 5px;
-                    padding-bottom: 5px;
-                    border-bottom: 2px solid gray;
-                }
-
-                button.remove {
-                    border: none;
-                    background: none;
-                    color: red;
-                }
+            button.remove {
+                border: none;
+                background: none;
+                color: red;
             }
         }
     }
