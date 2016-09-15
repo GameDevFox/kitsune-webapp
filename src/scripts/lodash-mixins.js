@@ -29,6 +29,13 @@
                 _.mount(obj, path, value);
                 return value;
             };
+        },
+
+        "logP": function() {
+            return (value) => {
+                console.log(value);
+                return value;
+            };
         }
     });
 })(_);

@@ -24,7 +24,7 @@
 
     <node-details ng-if="vm.node" node="vm.node"></node-details>
 
-    <a href="#" ng-init="showGraph=false" ng-click="showGraph=!showGraph"/>{{ showGraph ? "Hide" : "Show" }}</a>
+    <a ng-init="showGraph=false" ng-click="showGraph=!showGraph"/>{{ showGraph ? "Hide" : "Show" }}</a>
     <div class="g" ng-show="showGraph">
         <div class="graphContainer">
             <div class="graph"></div>

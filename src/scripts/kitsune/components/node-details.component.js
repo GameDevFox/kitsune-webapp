@@ -11,7 +11,6 @@
 
             ctrl.showEdges = true;
             $scope.$on("show-edges", function(e, value) {
-                console.log("Hello");
                 ctrl.showEdges = value;
             });
 
@@ -62,6 +61,10 @@
                         kitsuneService.readEdge(ctrl.node).then(_.mountP(ctrl, "edge"));
                     if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
                         kitsuneService.getStringValue(ctrl.node).then(_.mountP(ctrl, "stringValue"));
+                    if(nodeDesc.includes('bd07150e634d5b01eedbe44f28a5068b5a7c845d'))
+                        kitsuneService.post(ctrl.node).then(_.mountP(ctrl, "list"));
+                    if(nodeDesc.includes('b7df76bb3573caba7da57400c412f344cc309978'))
+                        kitsuneService.post("e6ff3d78ebd8f80c8945afd3499195049609905d", ctrl.node).then(_.mountP(ctrl, "systemFileSource"));
                 });
             };
 

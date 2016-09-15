@@ -12,18 +12,18 @@
             }};
 
             if(data)
-                request.data = data;
+                request.data = JSON.stringify(data);
 
-            return $http(request).then(function(result) {
-                return result;
-            });
+            return $http(request);
         };
 
         let mkCall = function(funcId, data) {
-            return post(funcId, JSON.stringify(data)).then(res => res.data);
+            return post(funcId, data).then(res => res.data);
         };
 
         let service = {
+            post: (funcId, data) => post(funcId, data).then(res => res.data),
+
             mkid: () => mkCall("bf565ae1309f425b0ab00efa2ba541ae03ad22cf"),
             readEdge: (edge) => mkCall("25cff8a2afcf560b5451d2482dbf9d9d69649f26", edge),
             factor: (args) => mkCall("c83cd0ab78a1d57609f9224f851bde6d230711d0", args),

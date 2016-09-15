@@ -41,10 +41,10 @@
         <span ng-if="!vm.nodeDesc.length">None</span>
     </div>
 
-        <a href="#" ng-init="showHeadsAndTails = true" ng-click="showHeadsAndTails = !showHeadsAndTails">
-            {{ showHeadsAndTails ? "Show" : "Hide" }} Heads and Tails
-        </a>
-        <div ng-show="showHeadsAndTails" class="heads-and-tails">
+    <a ng-init="showHeadsAndTails = true" ng-click="showHeadsAndTails = !showHeadsAndTails">
+        {{ showHeadsAndTails ? "Show" : "Hide" }} Heads and Tails
+    </a>
+    <div ng-show="showHeadsAndTails" class="heads-and-tails">
 
         <div class="heads">
             <div class="header">Heads</div>
@@ -91,5 +91,15 @@
                 <button ng-click="vm.addTail()">Add</button>
             </div>
         </div>
+    </div>
+
+    <div ng-if="vm.list">
+        <div class="header">List</div>
+        <node-button ng-repeat="node in vm.list" class="node-button-small" node="node"></node-button>
+    </div>
+
+    <div ng-if="vm.systemFileSource">
+        <div class="header">System File Source</div>
+        <pre>{{ vm.systemFileSource }}</pre>
     </div>
 </div>
