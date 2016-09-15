@@ -44,10 +44,18 @@
             ctrl.load = () => {
                 let node = ctrl.node;
 
+                ctrl.headTypes = {};
                 ctrl.tailTypes = {};
 
                 ctrl.loadNames();
-                kitsuneService.getHeads(ctrl.node).then(_.mountP(ctrl, "heads"));
+                kitsuneService.getHeads(ctrl.node).then(_.mountP(ctrl, "heads")).then(heads => {
+                    heads.forEach(function(head) {
+                        kitsuneService.factor({ head: head.head, tail: head.tail }).then(function(types) {
+                            var typeNodes = types.map(type => type.type);
+                            ctrl.headTypes[head.head] = typeNodes;
+                        });
+                    });
+                });
                 kitsuneService.getTails(ctrl.node).then(_.mountP(ctrl, "tails")).then(tails => {
                     tails.forEach(tail => {
                         kitsuneService.factor({ head: tail.head, tail: tail.tail }).then(types => {

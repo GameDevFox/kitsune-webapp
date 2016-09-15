@@ -59,6 +59,11 @@
                 <button class="remove" ng-click="vm.removeEdge(edge.id)">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
+
+                <div class="types" ng-if="vm.headTypes[edge.head].length">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <node-button class="node-button-small" ng-repeat="type in vm.headTypes[edge.head]" node="type"></node-button>
+                </div>
             </div>
             <input ng-model="vm.newHead" placeholder="Head">
             <div>
@@ -80,6 +85,7 @@
                 <button class="remove" ng-click="vm.removeEdge(edge.id)">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
+
                 <div class="types" ng-if="vm.tailTypes[edge.tail].length">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                     <node-button class="node-button-small" ng-repeat="type in vm.tailTypes[edge.tail]" node="type"></node-button>
