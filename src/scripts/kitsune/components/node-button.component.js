@@ -7,8 +7,16 @@
     mod.component("nodeButton", {
         templateUrl: 'templates/node-button.html',
         controller: function(kitsuneService) {
-            let ctrl = this;
-            kitsuneService.describeNode(ctrl.node).then(_.mountP(ctrl, "desc"));
+            let vm = this;
+            kitsuneService.describeNode(vm.node)
+                .then(_.mountP(vm, "desc"))
+                .then(desc => {
+                    let isString = desc.includes("821f1f34a4998adf0f1efd9b772b57efef71a070");
+                    if(isString) {
+                        kitsuneService.readString(vm.node)
+                            .then(_.mountP(vm, "string"));
+                    }
+                });
         },
         controllerAs: "vm",
         bindings: { node: "<" }
