@@ -1,0 +1,6 @@
+<div>
+    <input ng-model="vm.model" placeholder="{{ vm.placeholder }}"/>
+    <div ng-show="vm.names.length" class="names">
+        <div ng-repeat="name in vm.names">{{ name }}</div>
+    </div>
+</div>

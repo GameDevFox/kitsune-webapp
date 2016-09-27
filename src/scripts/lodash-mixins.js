@@ -31,9 +31,12 @@
             };
         },
 
-        "logP": function() {
+        "logP": function(msg) {
             return (value) => {
-                console.log(value);
+                if(msg)
+                    console.log(msg, value);
+                else
+                    console.log(value);
                 return value;
             };
         }

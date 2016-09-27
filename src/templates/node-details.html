@@ -65,7 +65,7 @@
                     <node-button class="node-button-small" ng-repeat="type in vm.headTypes[edge.head]" node="type"></node-button>
                 </div>
             </div>
-            <input ng-model="vm.newHead" placeholder="Head">
+            <node-input model="vm.newHead" placeholder="Head"></node-input>
             <div>
                 <button ng-click="vm.mkid('newHead')">New</button>
                 <button ng-click="vm.addHead()">Add</button>
@@ -91,7 +91,7 @@
                     <node-button class="node-button-small" ng-repeat="type in vm.tailTypes[edge.tail]" node="type"></node-button>
                 </div>
             </div>
-            <input ng-model="vm.newTail" placeholder="Tail">
+            <node-input model="vm.newTail" placeholder="Tail"></node-input>
             <div>
                 <button ng-click="vm.mkid('newTail')">New</button>
                 <button ng-click="vm.addTail()">Add</button>
