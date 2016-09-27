@@ -65,10 +65,19 @@
                     <node-button class="node-button-small" ng-repeat="type in vm.headTypes[edge.head]" node="type"></node-button>
                 </div>
             </div>
-            <node-input model="vm.newHead" placeholder="Head"></node-input>
-            <div>
+
+            <div class="add-edge">
+                <node-input model="vm.newHead" placeholder="Head"></node-input>
                 <button ng-click="vm.mkid('newHead')">New</button>
                 <button ng-click="vm.addHead()">Add</button>
+            </div>
+
+            <div class="add-assign">
+                <node-input model="vm.assignHeadHead" placeholder="Head"></node-input>
+                <button ng-click="vm.mkid('assignHeadHead')">New</button>
+                <node-input model="vm.assignHeadType" placeholder="Type"></node-input>
+                <button ng-click="vm.mkid('assignHeadType')">New</button>
+                <button ng-click="vm.assignHead()">Add</button>
             </div>
         </div>
 
@@ -91,10 +100,19 @@
                     <node-button class="node-button-small" ng-repeat="type in vm.tailTypes[edge.tail]" node="type"></node-button>
                 </div>
             </div>
-            <node-input model="vm.newTail" placeholder="Tail"></node-input>
-            <div>
+
+            <div class="add-edge">
+                <node-input model="vm.newTail" placeholder="Tail"></node-input>
                 <button ng-click="vm.mkid('newTail')">New</button>
                 <button ng-click="vm.addTail()">Add</button>
+            </div>
+
+            <div class="add-assign">
+                <node-input model="vm.assignTailType" placeholder="Type"></node-input>
+                <button ng-click="vm.mkid('assignTailType')">New</button>
+                <node-input model="vm.assignTailTail" placeholder="Tail"></node-input>
+                <button ng-click="vm.mkid('assignTailTail')">New</button>
+                <button ng-click="vm.assignTail()">Add</button>
             </div>
         </div>
     </div>

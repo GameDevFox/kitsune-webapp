@@ -34,6 +34,20 @@
                 kitsuneService.addEdge(ctrl.node, ctrl.newTail).then(ctrl.load);
                 ctrl.newTail = null;
             };
+
+            ctrl.assignHead = () => {
+                kitsuneService.assign({ head: ctrl.assignHeadHead, type: ctrl.assignHeadType, tail: ctrl.node })
+                    .then(ctrl.load);
+                ctrl.assignHeadHead = null;
+                ctrl.assignHeadType = null;
+            };
+            ctrl.assignTail = () => {
+                kitsuneService.assign({ head: ctrl.node, type: ctrl.assignTailType, tail: ctrl.assignTailTail })
+                    .then(ctrl.load);;
+                ctrl.assignTailTail = null;
+                ctrl.assignTailType = null;
+            };
+
             ctrl.removeEdge = edge => {
                 kitsuneService.removeEdge(edge).then(ctrl.load);
             };
