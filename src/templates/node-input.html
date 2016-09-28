@@ -6,9 +6,14 @@
                      md-delay="500"
                      md-no-cache="true"
                      placeholder="{{ vm.placeholder }}">
-        <div class="node">{{ node }}</div>
-        <div>
-            <span class="desc" ng-repeat="desc in vm.desc[node]">{{ vm.names[desc][0] || desc }}</span>
+        <div class="node">
+            {{ node }}
+        </div>
+        <div class="names">
+            <span ng-repeat="name in vm.names[node]">{{ name }}</span>
+        </div>
+        <div class="desc">
+            <span ng-repeat="desc in vm.desc[node]">{{ vm.names[desc][0] || desc }}</span>
         </div>
     </md-autocomplete>
 

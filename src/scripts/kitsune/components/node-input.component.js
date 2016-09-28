@@ -12,7 +12,17 @@
             vm.search = (text) => {
                 vm.desc = {};
                 vm.names = {};
-                let listP = kitsuneService.listNodes(text);
+
+                // let listP = kitsuneService.listNodes(text);
+                let listP = kitsuneService.searchStrings(text)
+                    .then(stringIds => {
+                        return kitsuneService.factor({
+                            head: stringIds,
+                            type: "f1830ba2c84e3c6806d95e74cc2b04d99cd269e0"
+                        })
+                            .then(factors => _.map(factors, "tail"));
+                    });
+
                 let strIdP = kitsuneService.makeString(text);
 
                 return Promise.all([listP, strIdP])
@@ -36,6 +46,7 @@
 
             function loadNodeInfo(nodes) {
                 nodes.forEach(node => {
+                    loadNames(node);
                     kitsuneService.describeNode(node)
                         .then(descNodes => vm.desc[node] = descNodes)
                         .then(descNodes => descNodes.forEach(loadNames));
@@ -45,7 +56,6 @@
 
             function loadNames(node) {
                 kitsuneService.listNames(node)
-                    .then(_.logP("listNames"))
                     .then(names => vm.names[node] = names);
             }
         },

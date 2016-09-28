@@ -35,11 +35,12 @@
             listGroup: (groupId) => mkCall("a8a338d08b0ef7e532cbc343ba1e4314608024b2", groupId),
             listNames: (nodeId) => mkCall("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3", nodeId),
             listNodes: (name) => mkCall("91aad58f3f5cf73d7edfadb6b83c2a0e556c15e2", name),
-            // TODO: Search Nodes that works like above with a partial search "na" => "name"
-            getStringValue: (nodeId) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", nodeId),
+
             describeNode: (nodeId) => mkCall("15b16d6f586760a181f017d264c4808dc0f8bd06", nodeId),
 
             makeString: (string) => mkCall("4e63843a9bee61351b80fac49f4182bd582907b4", string),
+            searchStrings: (like) => mkCall("debb03595c98dabf804339d4b4e8510bb14b56f9", like),
+            getStringValue: (nodeId) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", nodeId),
             readString: (node) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", node),
 
             getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node }),
