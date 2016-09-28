@@ -2,3 +2,29 @@ node-input .names {
   color: green;
   font-weight: bold;
 }
+
+md-virtual-repeat-container {
+  width: 380px;
+  min-height: 100px;
+}
+
+.node-input-autocomplete-template li {
+  height: auto;
+
+  line-height: initial;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  .node {
+    font-family: monospace;
+    margin-bottom: 5px;
+  }
+
+  .desc {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 5px;
+    margin-right: 5px;
+  }
+}

@@ -1,5 +1,17 @@
 <div>
-    <input ng-model="vm.model" placeholder="{{ vm.placeholder }}"/>
+    <md-autocomplete md-search-text="vm.model"
+                     md-items="node in vm.search(vm.model)"
+                     md-item-text="node"
+                     md-menu-class="node-input-autocomplete-template"
+                     md-delay="500"
+                     md-no-cache="true"
+                     placeholder="{{ vm.placeholder }}">
+        <div class="node">{{ node }}</div>
+        <div>
+            <span class="desc" ng-repeat="desc in vm.desc[node]">{{ vm.names[desc][0] || desc }}</span>
+        </div>
+    </md-autocomplete>
+
     <div ng-show="vm.names.length" class="names">
         <div ng-repeat="name in vm.names">{{ name }}</div>
     </div>

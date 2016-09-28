@@ -1,7 +1,7 @@
 .main node-details {
 
-    .add-edge { display: flex; }
-    .add-assign { display: flex; }
+    .add-edge { display: flex; align-items: flex-start; }
+    .add-assign { display: flex; align-items: flex-start; }
 
     .heads-and-tails {
         display: flex;

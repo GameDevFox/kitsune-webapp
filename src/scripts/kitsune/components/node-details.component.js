@@ -7,91 +7,91 @@
     mod.component("nodeDetails", {
         templateUrl: "templates/node-details.html",
         controller: function(kitsuneService, $scope) {
-            let ctrl = this;
+            let vm = this;
 
-            ctrl.showEdges = true;
+            vm.showEdges = true;
             $scope.$on("show-edges", function(e, value) {
-                ctrl.showEdges = value;
+                vm.showEdges = value;
             });
 
-            ctrl.loadNames = () => {
-                kitsuneService.listNames(ctrl.node).then(_.mountP(ctrl, "nameList"));
+            vm.loadNames = () => {
+                kitsuneService.listNames(vm.node).then(_.mountP(vm, "nameList"));
             };
 
-            ctrl.addName = () => {
-                kitsuneService.name(ctrl.node, ctrl.newName).then(ctrl.loadNames);
-                ctrl.newName = null;
+            vm.addName = () => {
+                kitsuneService.name(vm.node, vm.newName).then(vm.loadNames);
+                vm.newName = null;
             };
-            ctrl.removeName = name => {
-                kitsuneService.unname(ctrl.node, name).then(ctrl.loadNames);
-            };
-
-            ctrl.addHead = () => {
-                kitsuneService.addEdge(ctrl.newHead, ctrl.node).then(ctrl.load);
-                ctrl.newHead = null;
-            };
-            ctrl.addTail = () => {
-                kitsuneService.addEdge(ctrl.node, ctrl.newTail).then(ctrl.load);
-                ctrl.newTail = null;
+            vm.removeName = name => {
+                kitsuneService.unname(vm.node, name).then(vm.loadNames);
             };
 
-            ctrl.assignHead = () => {
-                kitsuneService.assign({ head: ctrl.assignHeadHead, type: ctrl.assignHeadType, tail: ctrl.node })
-                    .then(ctrl.load);
-                ctrl.assignHeadHead = null;
-                ctrl.assignHeadType = null;
+            vm.addHead = () => {
+                kitsuneService.addEdge(vm.newHead, vm.node).then(vm.load);
+                vm.newHead = null;
             };
-            ctrl.assignTail = () => {
-                kitsuneService.assign({ head: ctrl.node, type: ctrl.assignTailType, tail: ctrl.assignTailTail })
-                    .then(ctrl.load);;
-                ctrl.assignTailTail = null;
-                ctrl.assignTailType = null;
+            vm.addTail = () => {
+                kitsuneService.addEdge(vm.node, vm.newTail).then(vm.load);
+                vm.newTail = null;
             };
 
-            ctrl.removeEdge = edge => {
-                kitsuneService.removeEdge(edge).then(ctrl.load);
+            vm.assignHead = () => {
+                kitsuneService.assign({ head: vm.assignHeadHead, type: vm.assignHeadType, tail: vm.node })
+                    .then(vm.load);
+                vm.assignHeadHead = null;
+                vm.assignHeadType = null;
             };
-            ctrl.mkid = prop => {
-                kitsuneService.mkid().then(_.mountP(ctrl, prop));
+            vm.assignTail = () => {
+                kitsuneService.assign({ head: vm.node, type: vm.assignTailType, tail: vm.assignTailTail })
+                    .then(vm.load);
+                vm.assignTailTail = null;
+                vm.assignTailType = null;
             };
 
-            ctrl.load = () => {
-                let node = ctrl.node;
+            vm.removeEdge = edge => {
+                kitsuneService.removeEdge(edge).then(vm.load);
+            };
+            vm.mkid = prop => {
+                kitsuneService.mkid().then(_.mountP(vm, prop));
+            };
 
-                ctrl.headTypes = {};
-                ctrl.tailTypes = {};
+            vm.load = () => {
+                let node = vm.node;
 
-                ctrl.loadNames();
-                kitsuneService.getHeads(ctrl.node).then(_.mountP(ctrl, "heads")).then(heads => {
+                vm.headTypes = {};
+                vm.tailTypes = {};
+
+                vm.loadNames();
+                kitsuneService.getHeads(vm.node).then(_.mountP(vm, "heads")).then(heads => {
                     heads.forEach(function(head) {
                         kitsuneService.factor({ head: head.head, tail: head.tail }).then(function(types) {
                             var typeNodes = types.map(type => type.type);
-                            ctrl.headTypes[head.head] = typeNodes;
+                            vm.headTypes[head.head] = typeNodes;
                         });
                     });
                 });
-                kitsuneService.getTails(ctrl.node).then(_.mountP(ctrl, "tails")).then(tails => {
+                kitsuneService.getTails(vm.node).then(_.mountP(vm, "tails")).then(tails => {
                     tails.forEach(tail => {
                         kitsuneService.factor({ head: tail.head, tail: tail.tail }).then(types => {
                             let typeNodes = types.map(type => type.type);
-                            ctrl.tailTypes[tail.tail] = typeNodes;
+                            vm.tailTypes[tail.tail] = typeNodes;
                         });
                     });
                 });
-                kitsuneService.describeNode(ctrl.node).then(_.mountP(ctrl, "nodeDesc")).then(nodeDesc => {
+                kitsuneService.describeNode(vm.node).then(_.mountP(vm, "nodeDesc")).then(nodeDesc => {
                     if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
-                        kitsuneService.readEdge(ctrl.node).then(_.mountP(ctrl, "edge"));
+                        kitsuneService.readEdge(vm.node).then(_.mountP(vm, "edge"));
                     if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
-                        kitsuneService.getStringValue(ctrl.node).then(_.mountP(ctrl, "stringValue"));
+                        kitsuneService.getStringValue(vm.node).then(_.mountP(vm, "stringValue"));
                     if(nodeDesc.includes('bd07150e634d5b01eedbe44f28a5068b5a7c845d'))
-                        kitsuneService.post(ctrl.node).then(_.mountP(ctrl, "list"));
+                        kitsuneService.post(vm.node).then(_.mountP(vm, "list"));
                     if(nodeDesc.includes('b7df76bb3573caba7da57400c412f344cc309978'))
-                        kitsuneService.post("e6ff3d78ebd8f80c8945afd3499195049609905d", ctrl.node).then(_.mountP(ctrl, "systemFileSource"));
+                        kitsuneService.post("e6ff3d78ebd8f80c8945afd3499195049609905d", vm.node).then(_.mountP(vm, "systemFileSource"));
                 });
             };
 
-            $scope.$watch(() => { ctrl.node }, ctrl.load);
-            $scope.$on("refresh-node-details", ctrl.load);
+            $scope.$watch(() => { vm.node }, vm.load);
+            $scope.$on("refresh-node-details", vm.load);
         },
         controllerAs: "vm",
         bindings: { node: "<" }
