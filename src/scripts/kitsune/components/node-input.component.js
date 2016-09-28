@@ -12,24 +12,16 @@
             vm.search = (text) => {
                 vm.desc = {};
                 vm.names = {};
-                return kitsuneService.listNodes(text)
+                let listP = kitsuneService.listNodes(text);
+                let strIdP = kitsuneService.makeString(text);
+
+                return Promise.all([listP, strIdP])
+                    .then(([list, strId]) => {
+                        list.push(strId);
+                        return list;
+                    })
                     .then(_.mountP(vm, "nodes"))
-                    .then(nodes => {
-                        nodes.forEach(node => {
-                            kitsuneService.describeNode(node)
-                                .then(descNodes => {
-                                    descNodes.forEach(descNode => {
-                                        console.log("DN", descNode)
-                                        kitsuneService.listNames(descNode)
-                                            .then(_.logP("listNames"))
-                                            .then(names => vm.names[descNode] = names);
-                                    });
-                                    return descNodes;
-                                })
-                                .then(desc => vm.desc[node] = desc);
-                        });
-                        return nodes;
-                    });
+                    .then(loadNodeInfo);
             };
 
             $scope.$watch(
@@ -41,6 +33,21 @@
                         .then(_.mountP(vm, "names"));
                 }, 500)
             );
+
+            function loadNodeInfo(nodes) {
+                nodes.forEach(node => {
+                    kitsuneService.describeNode(node)
+                        .then(descNodes => vm.desc[node] = descNodes)
+                        .then(descNodes => descNodes.forEach(loadNames));
+                });
+                return nodes;
+            }
+
+            function loadNames(node) {
+                kitsuneService.listNames(node)
+                    .then(_.logP("listNames"))
+                    .then(names => vm.names[node] = names);
+            }
         },
         controllerAs: "vm",
         bindings: {
@@ -48,5 +55,4 @@
             placeholder: "@"
         }
     });
-
 })(angular);

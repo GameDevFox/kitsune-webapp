@@ -39,6 +39,7 @@
             getStringValue: (nodeId) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", nodeId),
             describeNode: (nodeId) => mkCall("15b16d6f586760a181f017d264c4808dc0f8bd06", nodeId),
 
+            makeString: (string) => mkCall("4e63843a9bee61351b80fac49f4182bd582907b4", string),
             readString: (node) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", node),
 
             getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node }),
