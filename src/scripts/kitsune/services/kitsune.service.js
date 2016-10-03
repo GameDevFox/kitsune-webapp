@@ -40,7 +40,6 @@
 
             makeString: (string) => mkCall("4e63843a9bee61351b80fac49f4182bd582907b4", string),
             searchStrings: (like) => mkCall("debb03595c98dabf804339d4b4e8510bb14b56f9", like),
-            getStringValue: (nodeId) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", nodeId),
             readString: (node) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", node),
 
             getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node }),

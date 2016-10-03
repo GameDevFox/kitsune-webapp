@@ -82,7 +82,7 @@
                     if(nodeDesc.includes('20bfa138672de625230eef7faebe0e10ba6a49d0')) // is-edge
                         kitsuneService.readEdge(vm.node).then(_.mountP(vm, "edge"));
                     if(nodeDesc.includes('821f1f34a4998adf0f1efd9b772b57efef71a070')) // is-string
-                        kitsuneService.getStringValue(vm.node).then(_.mountP(vm, "stringValue"));
+                        kitsuneService.readString(vm.node).then(_.mountP(vm, "stringValue"));
                     if(nodeDesc.includes('bd07150e634d5b01eedbe44f28a5068b5a7c845d'))
                         kitsuneService.post(vm.node).then(_.mountP(vm, "list"));
                     if(nodeDesc.includes('b7df76bb3573caba7da57400c412f344cc309978'))
