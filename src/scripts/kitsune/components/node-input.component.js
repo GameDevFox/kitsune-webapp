@@ -23,7 +23,7 @@
                             .then(factors => _.map(factors, "tail"));
                     });
 
-                let strIdP = kitsuneService.makeString(text);
+                let strIdP = kitsuneService.hashString(text);
 
                 return Promise.all([listP, strIdP])
                     .then(([list, strId]) => {

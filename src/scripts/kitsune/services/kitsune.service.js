@@ -38,6 +38,7 @@
 
             describeNode: (nodeId) => mkCall("15b16d6f586760a181f017d264c4808dc0f8bd06", nodeId),
 
+            hashString: (string) => mkCall("c2ea0ae0bca74d50be301049b8ff6e3a5b7d10ae", string),
             makeString: (string) => mkCall("4e63843a9bee61351b80fac49f4182bd582907b4", string),
             searchStrings: (like) => mkCall("debb03595c98dabf804339d4b4e8510bb14b56f9", like),
             readString: (node) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", node),
