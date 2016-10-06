@@ -100,7 +100,8 @@
             systemMap: systemMap,
 
             batch: {
-                listNames: batchService("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3"),
+                listNames: batchService("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3", 100),
+                describeNode: batchService("15b16d6f586760a181f017d264c4808dc0f8bd06", 100),
             }
         };
         return service;

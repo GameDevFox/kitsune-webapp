@@ -48,7 +48,7 @@
             function loadNodeInfo(nodes) {
                 nodes.forEach(node => {
                     loadNames(node);
-                    kitsuneService.describeNode(node)
+                    kitsuneService.batch.describeNode(node)
                         .then(descNodes => vm.desc[node] = descNodes)
                         .then(descNodes => descNodes.forEach(loadNames));
                 });

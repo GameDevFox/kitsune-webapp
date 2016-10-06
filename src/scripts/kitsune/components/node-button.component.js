@@ -8,7 +8,7 @@
         templateUrl: 'templates/node-button.html',
         controller: function(kitsuneService) {
             let vm = this;
-            kitsuneService.describeNode(vm.node)
+            kitsuneService.batch.describeNode(vm.node)
                 .then(_.mountP(vm, "desc"))
                 .then(desc => {
                     let isString = desc.includes("821f1f34a4998adf0f1efd9b772b57efef71a070");
