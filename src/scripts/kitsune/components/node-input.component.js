@@ -37,10 +37,11 @@
             $scope.$watch(
                 () => vm.model,
                 _.debounce(model => {
-
-                    vm.names = null;
-                    kitsuneService.listNames(model)
-                        .then(_.mountP(vm, "names"));
+                    if(!model.trim().length == 0) {
+                        vm.names = null;
+                        kitsuneService.batch.listNames(model)
+                            .then(_.mountP(vm, "names"));
+                    }
                 }, 500)
             );
 
@@ -55,7 +56,7 @@
             }
 
             function loadNames(node) {
-                kitsuneService.listNames(node)
+                kitsuneService.batch.listNames(node)
                     .then(names => vm.names[node] = names);
             }
         },

@@ -15,7 +15,7 @@
             });
 
             let getName = function(value) {
-                return kitsuneService.listNames(value).then(x => x[0]);
+                return kitsuneService.batch.listNames(value).then(x => x[0]);
             };
             $scope.$watch(() => ctrl.node, function(val) {
                 ctrl.id = _.truncate(val, {

@@ -15,7 +15,7 @@
             });
 
             vm.loadNames = () => {
-                kitsuneService.listNames(vm.node).then(_.mountP(vm, "nameList"));
+                kitsuneService.batch.listNames(vm.node).then(_.mountP(vm, "nameList"));
             };
 
             vm.addName = () => {
