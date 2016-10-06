@@ -21,6 +21,46 @@
             return post(funcId, data).then(res => res.data);
         };
 
+        let systemMap = (system, data) => mkCall("187757b06fee5a804c312e55d834d06025762605", { system, data });
+
+        let batchService = function(system, interval=0) {
+            let running = false;
+
+            let nextCallData = [];
+            let nextCall;
+
+            let getNextCall = function() {
+                if(!running) {
+                    nextCall = new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            let data = _.uniq(nextCallData);
+                            nextCallData = [];
+
+                            systemMap(system, data)
+                                .then(resolve);
+
+                            running = false;
+                        }, interval);
+                    });
+                    running = true;
+                }
+
+                return nextCall;
+            };
+
+            return function(data) {
+                let result;
+                if(_.isArray(data)) {
+                    nextCallData = nextCallData.concat(data);
+                    result = getNextCall().then(res => _.pick(res, data));
+                } else {
+                    nextCallData.push(data);
+                    result = getNextCall().then(res => res[data]);
+                }
+                return result;
+            };
+        };
+
         let service = {
             post: (funcId, data) => post(funcId, data).then(res => res.data),
 
@@ -33,7 +73,7 @@
             unname: (node, name) => mkCall("708f17af0e4f537757cf8817cbca4ed016b7bb8b", { node, name }),
 
             listGroup: (groupId) => mkCall("a8a338d08b0ef7e532cbc343ba1e4314608024b2", groupId),
-            listNames: (nodeId) => mkCall("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3", nodeId),
+            listNames: (node) => mkCall("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3", node),
             listNodes: (name) => mkCall("91aad58f3f5cf73d7edfadb6b83c2a0e556c15e2", name),
 
             describeNode: (nodeId) => mkCall("15b16d6f586760a181f017d264c4808dc0f8bd06", nodeId),
@@ -55,7 +95,13 @@
             load: () => mkCall("d575ab0a08a412215384e34ccbf363e960f3b392"),
             save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
 
-            log: (msg) =>  { console.log(msg); }
+            log: (msg) =>  { console.log(msg); },
+
+            systemMap: systemMap,
+
+            batch: {
+                listNames: batchService("890b0b96d7d239e2f246ec03b00cb4e8e06ca2c3"),
+            }
         };
         return service;
     });
