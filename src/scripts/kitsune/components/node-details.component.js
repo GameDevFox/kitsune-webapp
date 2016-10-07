@@ -27,25 +27,27 @@
             };
 
             vm.addHead = () => {
-                kitsuneService.addEdge(vm.newHead, vm.node).then(vm.load);
-                vm.newHead = null;
+                if(vm.headType.trim().length == 0) {
+                    kitsuneService.addEdge(vm.newHead, vm.node)
+                        .then(vm.load);
+                    vm.newHead = null;
+                } else {
+                    kitsuneService.assign({ head: vm.newHead, type: vm.headType, tail: vm.node })
+                        .then(vm.load);
+                    vm.newHead = null;
+                    vm.headType = null;
+                }
             };
             vm.addTail = () => {
-                kitsuneService.addEdge(vm.node, vm.newTail).then(vm.load);
-                vm.newTail = null;
-            };
-
-            vm.assignHead = () => {
-                kitsuneService.assign({ head: vm.assignHeadHead, type: vm.assignHeadType, tail: vm.node })
-                    .then(vm.load);
-                vm.assignHeadHead = null;
-                vm.assignHeadType = null;
-            };
-            vm.assignTail = () => {
-                kitsuneService.assign({ head: vm.node, type: vm.assignTailType, tail: vm.assignTailTail })
-                    .then(vm.load);
-                vm.assignTailTail = null;
-                vm.assignTailType = null;
+                if(vm.tailType.trim().length == 0) {
+                    kitsuneService.addEdge(vm.node, vm.newTail).then(vm.load);
+                    vm.newTail = null;
+                } else {
+                    kitsuneService.assign({ head: vm.node, type: vm.tailType, tail: vm.newTail })
+                        .then(vm.load);
+                    vm.newTail = null;
+                    vm.tailType = null;
+                }
             };
 
             vm.removeEdge = edge => {
@@ -56,8 +58,6 @@
             };
 
             vm.load = () => {
-                let node = vm.node;
-
                 vm.headTypes = {};
                 vm.tailTypes = {};
 

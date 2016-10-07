@@ -73,11 +73,8 @@
             </div>
 
             <div class="add-assign">
-                <node-input model="vm.assignHeadHead" placeholder="Head"></node-input>
-                <button ng-click="vm.mkid('assignHeadHead')">New</button>
-                <node-input model="vm.assignHeadType" placeholder="Type"></node-input>
-                <button ng-click="vm.mkid('assignHeadType')">New</button>
-                <button ng-click="vm.assignHead()">Add</button>
+                <node-input model="vm.headType" placeholder="Type"></node-input>
+                <button ng-click="vm.mkid('headType')">New</button>
             </div>
         </div>
 
@@ -101,18 +98,15 @@
                 </div>
             </div>
 
+            <div class="add-assign">
+                <node-input model="vm.tailType" placeholder="Type"></node-input>
+                <button ng-click="vm.mkid('tailType')">New</button>
+            </div>
+
             <div class="add-edge">
                 <node-input model="vm.newTail" placeholder="Tail"></node-input>
                 <button ng-click="vm.mkid('newTail')">New</button>
                 <button ng-click="vm.addTail()">Add</button>
-            </div>
-
-            <div class="add-assign">
-                <node-input model="vm.assignTailType" placeholder="Type"></node-input>
-                <button ng-click="vm.mkid('assignTailType')">New</button>
-                <node-input model="vm.assignTailTail" placeholder="Tail"></node-input>
-                <button ng-click="vm.mkid('assignTailTail')">New</button>
-                <button ng-click="vm.assignTail()">Add</button>
             </div>
         </div>
     </div>
