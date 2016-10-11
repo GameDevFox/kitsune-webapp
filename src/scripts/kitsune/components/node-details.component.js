@@ -17,7 +17,8 @@
             vm.nav = node => $state.go("node-view", { id: node });
 
             vm.loadNames = () => {
-                kitsuneService.batch.listNames(vm.node).then(_.mountP(vm, "nameList"));
+                kitsuneService.batch.listNames(vm.node)
+                    .then(_.mountP(vm, "nameList", $scope))
             };
 
             vm.addName = () => {

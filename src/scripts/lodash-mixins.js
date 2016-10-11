@@ -24,9 +24,12 @@
             return value;
         },
 
-        "mountP": function(obj, path) {
+        "mountP": function(obj, path, $scope) {
             return function(value) {
-                _.mount(obj, path, value);
+                if($scope)
+                    $scope.$apply(() => { _.mount(obj, path, value); });
+                else
+                    _.mount(obj, path, value);
                 return value;
             };
         },
