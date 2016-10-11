@@ -21,6 +21,7 @@
     "bootstrap": {
       "main": [
         "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap-theme.min.css",
         "dist/js/bootstrap.js"
       ]
     },

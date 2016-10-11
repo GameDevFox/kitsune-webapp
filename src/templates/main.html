@@ -1,7 +1,8 @@
 <div class="container-fluid">
     <div class="savePanel">
         <div>
-            <button ui-sref="node-view({ id: '7f82d45a6ffb5c345f84237a621de35dd8b7b0e3' })">core-node</button>
+            <button class="btn btn-primary"
+                    ui-sref="node-view({ id: '7f82d45a6ffb5c345f84237a621de35dd8b7b0e3' })">core-node</button>
         </div>
 
         <input type="checkbox" ng-model="vm.showEdges" aria-label="Show Edges">
@@ -17,8 +18,8 @@
         </div>
 
         <div>
-            <button ng-click="vm.load()">Load</button>
-            <button ng-click="vm.save()">Save</button>
+            <button class="btn btn-primary" ng-click="vm.load()">Load</button>
+            <button class="btn btn-primary" ng-click="vm.save()">Save</button>
         </div>
     </div>
 
