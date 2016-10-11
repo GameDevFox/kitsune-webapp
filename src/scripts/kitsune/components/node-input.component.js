@@ -37,7 +37,7 @@
             $scope.$watch(
                 () => vm.model,
                 _.debounce(model => {
-                    if(!model.trim().length == 0) {
+                    if(model && !model.trim().length == 0) {
                         vm.names = null;
                         kitsuneService.batch.listNames(model)
                             .then(_.mountP(vm, "names"));

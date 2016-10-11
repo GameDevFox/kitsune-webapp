@@ -2,17 +2,12 @@
 
     'use strict';
 
-    let mod = angular.module("kitsune", ["ngMaterial", "ui.router"]);
+    let mod = angular.module("kitsune", ["ui.router"]);
 
     // CONFIG //
     mod.constant("kitsuneUrl", "http://localhost:8080/");
 
-    mod.config(function($mdThemingProvider, $urlRouterProvider, $stateProvider) {
-        $mdThemingProvider
-            .theme('default')
-            .primaryPalette('blue')
-            .accentPalette('red');
-
+    mod.config(function($urlRouterProvider, $stateProvider) {
         $urlRouterProvider.otherwise('/node/7f82d45a6ffb5c345f84237a621de35dd8b7b0e3');
 
         $stateProvider.state('node-view', {

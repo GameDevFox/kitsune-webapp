@@ -1,16 +1,14 @@
-<md-toolbar>
-    <div class="md-toolbar-tools">
-        <span>
-            <span class="name" ng-repeat="name in vm.nameList">
-                {{ name }}
-                <button ng-click="vm.removeName(name)">
-                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                </button>
-            </span>
+<div class="banner">
+    <span>
+        <span class="name" ng-repeat="name in vm.nameList">
+            {{ name }}
+            <button ng-click="vm.removeName(name)">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </button>
         </span>
-        <span>{{ vm.node }}</span>
-    </div>
-</md-toolbar>
+    </span>
+    <span>{{ vm.node }}</span>
+</div>
 
 <div class="name-entry">
     <input type="text" ng-model="vm.newName" placeholder="New Name"/>
