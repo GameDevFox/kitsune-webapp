@@ -1,4 +1,6 @@
-<button ng-class="vm.desc | desc" ui-sref="node-view({ id: vm.node })" class="name">
-    <node-name node="vm.node"></node-name>
-    <span class="string">{{ vm.string }}</span>
-</button>
+<a ng-class="vm.desc | desc" ui-sref="node-view({ id: vm.node })" >
+    <span class="label label-default">
+        <node-name ng-hide="vm.string" node="vm.node"></node-name>
+        <span ng-show="vm.string" class="string">{{ vm.string }}</span>
+    </span>
+</a>

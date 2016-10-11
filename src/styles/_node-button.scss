@@ -1,14 +1,11 @@
 node-button {
 
-    button {
-        min-height: 19px;
-        line-height: 18px;
+    margin-right: 5px;
 
-        // is-string
-        &.t821f1f34a4998adf0f1efd9b772b57efef71a070 {
-            border: 2px solid green;
-            node-name { display: none; }
-            .string { font-weight: bold; color: green; }
-        }
+    // is-string
+    a.t821f1f34a4998adf0f1efd9b772b57efef71a070 .label {
+        border: 2px solid green;
+        background-color: lightgrey;
+        .string { font-weight: bold; color: green; }
     }
 }

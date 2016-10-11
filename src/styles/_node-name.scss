@@ -5,12 +5,9 @@ node-name {
 
     span {
         font-family: monospace;
-        font-weight: initial;
-        color: gray;
         &.name {
             font-family: initial;
             font-weight: bold;
-            color: black;
         }
     }
 }

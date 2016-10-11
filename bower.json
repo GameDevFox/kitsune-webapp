@@ -15,7 +15,8 @@
     "cytoscape": "~2.5.4",
     "lodash": "^4.15.0",
     "font-awesome": "^4.6.3",
-    "moment": "^2.14.1"
+    "moment": "^2.14.1",
+    "angular-bootstrap": "^2.2.0"
   },
   "overrides": {
     "bootstrap": {

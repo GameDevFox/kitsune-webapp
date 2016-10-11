@@ -1,15 +1,25 @@
-<div>
-    <input ng-model="vm.model" placeholder="{{ vm.placeholder }}"></input>
+<script type="text/ng-template" id="node-input-template.html">
+    <a>
+        <div class="node">
+            {{ match.model.node }}
+        </div>
+        <div class="names">
+            <span ng-repeat="name in match.model.names">{{ name }}</span>
+        </div>
+        <div class="desc">
+            <node-button ng-repeat="desc in match.model.desc" node="desc"></node-button>
+        </div>
+    </a>
 
-    <!--<div class="node">-->
-        <!--{{ node }}-->
-    <!--</div>-->
-    <!--<div class="names">-->
-        <!--<span ng-repeat="name in vm.names[node]">{{ name }}</span>-->
-    <!--</div>-->
-    <!--<div class="desc">-->
-        <!--<span ng-repeat="desc in vm.desc[node]">{{ vm.names[desc][0] || desc }}</span>-->
-    <!--</div>-->
+</script>
+
+<div>
+    <input type="text"
+           ng-model="vm.model"
+           ng-model-options="{ debounce: 500 }"
+           uib-typeahead="result.node for result in vm.search($viewValue)"
+           typeahead-template-url="node-input-template.html"
+           placeholder="{{ vm.placeholder }}"></input>
 
     <div ng-show="vm.names.length" class="names">
         <div ng-repeat="name in vm.names">{{ name }}</div>

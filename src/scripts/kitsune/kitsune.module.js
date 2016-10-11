@@ -2,7 +2,7 @@
 
     'use strict';
 
-    let mod = angular.module("kitsune", ["ui.router"]);
+    let mod = angular.module("kitsune", ["ui.router", "ui.bootstrap"]);
 
     // CONFIG //
     mod.constant("kitsuneUrl", "http://localhost:8080/");

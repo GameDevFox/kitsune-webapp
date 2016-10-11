@@ -10,10 +10,6 @@
             let vm = this;
 
             vm.search = (text) => {
-                vm.desc = {};
-                vm.names = {};
-
-                // let listP = kitsuneService.listNodes(text);
                 let listP = kitsuneService.searchStrings(text)
                     .then(stringIds => {
                         return kitsuneService.factor({
@@ -30,9 +26,30 @@
                         list.push(strId);
                         return list;
                     })
-                    .then(_.mountP(vm, "nodes"))
-                    .then(loadNodeInfo);
+                    .then(nodes => {
+                        return _.map(nodes, node => {
+                            return { node }
+                        });
+                    })
+                    .then(loadDesc)
+                    .then(loadNames);
             };
+
+            function loadDesc(results) {
+                results.forEach(result => {
+                    kitsuneService.batch.describeNode(result.node)
+                        .then(desc => result.desc = desc);
+                });
+                return results;
+            }
+
+            function loadNames(results) {
+                results.forEach(result => {
+                    kitsuneService.batch.listNames(result.node)
+                        .then(names => result.names = names);
+                })
+                return results;
+            }
 
             $scope.$watch(
                 () => vm.model,
@@ -44,21 +61,6 @@
                     }
                 }, 500)
             );
-
-            function loadNodeInfo(nodes) {
-                nodes.forEach(node => {
-                    loadNames(node);
-                    kitsuneService.batch.describeNode(node)
-                        .then(descNodes => vm.desc[node] = descNodes)
-                        .then(descNodes => descNodes.forEach(loadNames));
-                });
-                return nodes;
-            }
-
-            function loadNames(node) {
-                kitsuneService.batch.listNames(node)
-                    .then(names => vm.names[node] = names);
-            }
         },
         controllerAs: "vm",
         bindings: {

@@ -1,4 +1,15 @@
-node-input .names {
-  color: green;
-  font-weight: bold;
+node-input {
+  input {
+    padding: 0 5px;
+    width: 355px;
+    font-family: monospace;
+  }
+  li .names {
+    color: green;
+    font-weight: bold;
+  }
+
+  li.active .names {
+    color: lightgreen;
+  }
 }
