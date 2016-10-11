@@ -13,6 +13,11 @@
             border: none;
             background-color: transparent;
         }
+
+        node-input {
+            color: black;
+            & > .names { display: none; }
+        }
     }
 
     .add-edge { display: flex; align-items: flex-start; }

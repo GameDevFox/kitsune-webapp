@@ -6,13 +6,15 @@
 
     mod.component("nodeDetails", {
         templateUrl: "templates/node-details.html",
-        controller: function(kitsuneService, $scope) {
+        controller: function(kitsuneService, $state, $scope) {
             let vm = this;
 
             vm.showEdges = true;
             $scope.$on("show-edges", function(e, value) {
                 vm.showEdges = value;
             });
+
+            vm.nav = node => $state.go("node-view", { id: node });
 
             vm.loadNames = () => {
                 kitsuneService.batch.listNames(vm.node).then(_.mountP(vm, "nameList"));

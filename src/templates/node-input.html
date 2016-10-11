@@ -13,15 +13,14 @@
 
 </script>
 
-<div>
-    <input type="text"
-           ng-model="vm.model"
-           ng-model-options="{ debounce: 500 }"
-           uib-typeahead="result.node for result in vm.search($viewValue)"
-           typeahead-template-url="node-input-template.html"
-           placeholder="{{ vm.placeholder }}"></input>
+<input type="text"
+       ng-model="vm.model"
+       ng-model-options="{ debounce: 500 }"
+       uib-typeahead="result.node for result in vm.search($viewValue)"
+       typeahead-template-url="node-input-template.html"
+       typeahead-on-select="vm.onSelectLocal($item, $model, $label, $event)"
+       placeholder="{{ vm.placeholder || 'Node' }}"/>
 
-    <div ng-show="vm.names.length" class="names">
-        <div ng-repeat="name in vm.names">{{ name }}</div>
-    </div>
+<div ng-show="vm.names.length" class="names">
+    <div ng-repeat="name in vm.names">{{ name }}</div>
 </div>

@@ -35,6 +35,10 @@
                     .then(loadNames);
             };
 
+            vm.onSelectLocal = function($item, $model, $label, $event) {
+                vm.onSelect({ $item, $model, $label, $event });
+            };
+
             function loadDesc(results) {
                 results.forEach(result => {
                     kitsuneService.batch.describeNode(result.node)
@@ -47,7 +51,7 @@
                 results.forEach(result => {
                     kitsuneService.batch.listNames(result.node)
                         .then(names => result.names = names);
-                })
+                });
                 return results;
             }
 
@@ -65,7 +69,8 @@
         controllerAs: "vm",
         bindings: {
             model: "=",
-            placeholder: "@"
+            placeholder: "@",
+            onSelect: "&"
         }
     });
 })(angular);
