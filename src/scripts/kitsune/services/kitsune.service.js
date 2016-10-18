@@ -93,7 +93,7 @@
             getSyncTime: () => mkCall("9a3a7c56e96abc04bd92f63cdfc5f31d49f778cd"),
 
             load: () => mkCall("d575ab0a08a412215384e34ccbf363e960f3b392"),
-            save: () => $http({ method: "GET", url: kitsuneUrl+"api/save" }),
+            save: () => mkCall("c2ff24899966a19f0615519692679bff2c2b8b26", true),
 
             log: (msg) =>  { console.log(msg); },
 
