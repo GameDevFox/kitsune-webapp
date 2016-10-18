@@ -6,7 +6,7 @@
 
     mod.component("nodeInput", {
         templateUrl: 'templates/node-input.html',
-        controller: function(kitsuneService, $scope) {
+        controller: function(kitsuneService, $scope, $q) {
             let vm = this;
 
             vm.search = (text) => {
@@ -21,7 +21,7 @@
 
                 let strIdP = kitsuneService.hashString(text);
 
-                return Promise.all([listP, strIdP])
+                return $q.all([listP, strIdP])
                     .then(([list, strId]) => {
                         list.push(strId);
                         return list;

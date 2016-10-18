@@ -4,7 +4,7 @@
 
     var mod = angular.module("kitsune");
 
-    mod.factory("kitsuneService", function($http, kitsuneUrl) {
+    mod.factory("kitsuneService", function($http, $timeout, $q, kitsuneUrl) {
 
         let post = function(funcId, data) {
             let request = { method: "POST", url: kitsuneUrl+"api/"+ funcId, headers: {
@@ -31,8 +31,8 @@
 
             let getNextCall = function() {
                 if(!running) {
-                    nextCall = new Promise((resolve, reject) => {
-                        setTimeout(() => {
+                    nextCall = new $q((resolve, reject) => {
+                        $timeout(() => {
                             let data = _.uniq(nextCallData);
                             nextCallData = [];
 

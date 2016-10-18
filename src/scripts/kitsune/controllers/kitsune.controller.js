@@ -7,7 +7,7 @@
     let outOfDate;
     let checkDataSync;
 
-    mod.run(($interval, $rootScope, kitsuneService) => {
+    mod.run(($interval, $rootScope, $q, kitsuneService) => {
         console.log("Hello Kitsune");
 
         checkDataSync = () => {
@@ -16,7 +16,7 @@
             let dataTimeP = kitsuneService.getDataTime();
             let syncTimeP = kitsuneService.getSyncTime();
 
-            Promise.all([dataTimeP, syncTimeP]).then(([dataTime, syncTime]) => {
+            $q.all([dataTimeP, syncTimeP]).then(([dataTime, syncTime]) => {
                 let mDataTime = moment(dataTime, "x");
                 let mSyncTime = moment(syncTime, "x");
 
@@ -24,8 +24,6 @@
                     outOfDate = null; // Up to date
                 else
                     outOfDate = mSyncTime.from(mDataTime, true);
-
-                $rootScope.$digest();
             });
         };
         checkDataSync();

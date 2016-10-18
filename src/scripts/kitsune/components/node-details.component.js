@@ -18,7 +18,7 @@
 
             vm.loadNames = () => {
                 kitsuneService.batch.listNames(vm.node)
-                    .then(_.mountP(vm, "nameList", $scope))
+                    .then(_.mountP(vm, "nameList"))
             };
 
             vm.addName = () => {
@@ -30,7 +30,7 @@
             };
 
             vm.addHead = () => {
-                if(vm.headType.trim().length == 0) {
+                if(!vm.headType || vm.headType.trim().length == 0) {
                     kitsuneService.addEdge(vm.newHead, vm.node)
                         .then(vm.load);
                     vm.newHead = null;
@@ -42,7 +42,7 @@
                 }
             };
             vm.addTail = () => {
-                if(vm.tailType.trim().length == 0) {
+                if(!vm.tailType || vm.tailType.trim().length == 0) {
                     kitsuneService.addEdge(vm.node, vm.newTail).then(vm.load);
                     vm.newTail = null;
                 } else {
