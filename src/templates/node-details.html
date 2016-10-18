@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
 
-    <div class="panel-heading">
+    <div class="node-details-heading panel-heading">
         <span>
             <span class="name" ng-repeat="name in vm.nameList">
                 {{ name }}
@@ -34,21 +34,25 @@
             </span>
         </div>
 
-        <div class="contents">
-
-            <div class="types">
-                <div class="header">Types</div>
+        <div class="types panel panel-primary">
+            <div class="panel-heading">Types</div>
+            <div class="panel-body">
                 <node-button ng-repeat="type in vm.nodeDesc" node="type"></node-button>
                 <span ng-if="!vm.nodeDesc.length">None</span>
             </div>
+        </div>
 
+        <div>
             <a ng-init="showHeadsAndTails = true" ng-click="showHeadsAndTails = !showHeadsAndTails">
                 {{ showHeadsAndTails ? "Show" : "Hide" }} Heads and Tails
             </a>
-            <div ng-show="showHeadsAndTails" class="heads-and-tails">
+        </div>
 
-                <div class="heads">
-                    <div class="header">Heads</div>
+        <div ng-show="showHeadsAndTails" class="heads-and-tails">
+
+            <div class="heads panel panel-default">
+                <div class="panel-heading">Heads</div>
+                <div class="panel-body">
                     <div class="list" ng-repeat="edge in vm.heads">
                         <node-button class="node-button-small" node="edge.head"></node-button>
                         <span ng-show="vm.showEdges">
@@ -78,9 +82,11 @@
                         <button ng-click="vm.mkid('headType')">New</button>
                     </div>
                 </div>
+            </div>
 
-                <div class="tails">
-                    <div class="header">Tails</div>
+            <div class="tails panel panel-default">
+                <div class="panel-heading">Tails</div>
+                <div class="panel-body">
                     <div class="list" ng-repeat="edge in vm.tails">
                         <span ng-show="vm.showEdges">
                             <span class="this">THIS</span>
@@ -111,16 +117,16 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div ng-if="vm.list">
-                <div class="header">List</div>
-                <node-button ng-repeat="node in vm.list" class="node-button-small" node="node"></node-button>
-            </div>
+        <div ng-if="vm.list">
+            <div class="header">List</div>
+            <node-button ng-repeat="node in vm.list" class="node-button-small" node="node"></node-button>
+        </div>
 
-            <div ng-if="vm.systemFileSource">
-                <div class="header">System File Source</div>
-                <pre>{{ vm.systemFileSource }}</pre>
-            </div>
+        <div ng-if="vm.systemFileSource">
+            <div class="header">System File Source</div>
+            <pre>{{ vm.systemFileSource }}</pre>
         </div>
     </div>
 

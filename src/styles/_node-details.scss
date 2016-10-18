@@ -1,24 +1,39 @@
 .main node-details {
 
-    .panel-heading {
-        padding: 10px;
+    & > .panel {
 
-        display: flex;
-        justify-content: space-between;
-        color: white;
-        background-color: rgb(3,155,229);
+        & > .panel-heading  {
+            padding: 10px;
 
-        button {
-            color: black;
-            border: none;
-            background-color: transparent;
+            display: flex;
+            justify-content: space-between;
+
+            button {
+                color: black;
+                border: none;
+                background-color: transparent;
+            }
+
+            node-input {
+                color: black;
+                & > .names { display: none; }
+            }
         }
 
-        node-input {
-            color: black;
-            & > .names { display: none; }
-        }
+        & > .panel-body > * { margin-bottom: 10px; }
+        & > .panel-body > *:last-child { margin-bottom: 0px; }
     }
+
+    .panel-body {
+        padding: 10px;
+    }
+
+    .types {
+        .panel-heading { padding: 5px; }
+        .panel-body { padding: 5px; }
+    }
+
+
 
     .add-edge { display: flex; align-items: flex-start; }
     .add-assign { display: flex; align-items: flex-start; }
@@ -26,9 +41,12 @@
     .heads-and-tails {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
+
+        width: 100%;
 
         & > * {
-            margin-right: 20px;
+            margin-right: 10px;
         }
     }
 
@@ -40,39 +58,27 @@
         border-radius: 3px;
     }
 
-    .name-entry { margin: 5px 0; }
+    .heads,.tails {
+        flex-grow: 1;
+        margin-bottom: 0px;
 
-    .contents {
+        i.fa { margin: 0 5px; }
 
-        display: flex;
-        flex-direction: column;
-
-        & > * {
-            padding-right: 5px;
-            margin-right: 20px;
-            margin-bottom: 20px;
+        .types {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid gray;
         }
 
-        .header {
-            font-weight: bold;
-            border-bottom: 4px solid gray;// #2196F3;
+        button.remove {
+            border: none;
+            background: none;
+            color: red;
         }
+    }
 
-        .heads,.tails {
-            i.fa { margin: 0 5px; }
-
-            .types {
-                padding-top: 5px;
-                padding-bottom: 5px;
-                border-bottom: 2px solid gray;
-            }
-
-            button.remove {
-                border: none;
-                background: none;
-                color: red;
-            }
-        }
+    .tails {
+        margin-right: 0px;
     }
 
     node-name { font-weight: bold; }
