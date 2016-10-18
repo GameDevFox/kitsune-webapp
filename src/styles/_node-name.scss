@@ -5,9 +5,15 @@ node-name {
 
     span {
         font-family: monospace;
+
         &.name {
             font-family: initial;
             font-weight: bold;
         }
+
+        &.name .id { display: none }
+
+        .name { display: none; }
+        &.name .name { display: initial }
     }
 }

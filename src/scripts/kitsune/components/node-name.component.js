@@ -5,24 +5,30 @@
     var mod = angular.module("kitsune");
 
     mod.component("nodeName", {
-        template: "<span ng-class='vm.name ? \"name\" : \"\"'>{{ vm.name && vm.showNames ? vm.name : vm.id }}</span>",
+        template:
+            "<span ng-class='vm.name && vm.showNames ? \"name\" : \"\"'>" +
+                "<span class='id'>{{ vm.id }}</span>" +
+                "<span class='name'>{{ vm.name }}</span>" +
+            "</span>",
         controller: function(kitsuneService, $scope, $attrs) {
-            let ctrl = this;
+            let vm = this;
 
-            ctrl.showNames = true;
+            vm.showNames = true;
             $scope.$on("show-names", function(e, value) {
-                ctrl.showNames = value;
+                vm.showNames = value;
             });
 
             let getName = function(value) {
                 return kitsuneService.batch.listNames(value).then(x => x[0]);
             };
-            $scope.$watch(() => ctrl.node, function(val) {
-                ctrl.id = _.truncate(val, {
+            $scope.$watch(() => vm.node, function(val) {
+                vm.id = _.truncate(val, {
                     length: 9,
                     omission: '*'
                 });
-                getName(val).then(_.mountP(ctrl, "name"));
+                getName(val)
+                    .then(_.logP("name"))
+                    .then(_.mountP(vm, "name"));
             });
         },
         controllerAs: "vm",
