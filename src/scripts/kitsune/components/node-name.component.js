@@ -26,9 +26,7 @@
                     length: 9,
                     omission: '*'
                 });
-                getName(val)
-                    .then(_.logP("name"))
-                    .then(_.mountP(vm, "name"));
+                getName(val).then(_.mountP(vm, "name"));
             });
         },
         controllerAs: "vm",

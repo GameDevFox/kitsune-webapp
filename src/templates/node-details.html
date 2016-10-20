@@ -65,9 +65,9 @@
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
 
-                        <div class="types" ng-if="vm.headTypes[edge.head].length">
+                        <div class="types" ng-if="vm.edgeTypes[edge.id].length">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            <node-button class="node-button-small" ng-repeat="type in vm.headTypes[edge.head]" node="type"></node-button>
+                            <node-button class="node-button-small" ng-repeat="type in vm.edgeTypes[edge.id]" node="type"></node-button>
                         </div>
                     </div>
 
@@ -99,9 +99,9 @@
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
 
-                        <div class="types" ng-if="vm.tailTypes[edge.tail].length">
+                        <div class="types" ng-if="vm.edgeTypes[edge.id].length">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            <node-button class="node-button-small" ng-repeat="type in vm.tailTypes[edge.tail]" node="type"></node-button>
+                            <node-button class="node-button-small" ng-repeat="type in vm.edgeTypes[edge.id]" node="type"></node-button>
                         </div>
                     </div>
 

@@ -60,25 +60,32 @@
                 kitsuneService.mkid().then(_.mountP(vm, prop));
             };
 
+            function mergeEdgeTypes(edgeTypes) {
+                return function(types) {
+                     _(types)
+                         .groupBy("id")
+                         .mapValues(x => _.map(x, "type"))
+                         .each((value, key) => {
+                             let list = edgeTypes[key];
+                             edgeTypes[key] = list ? _.assign(list, value) : value;
+                         });
+                };
+            }
+
             vm.load = () => {
-                vm.headTypes = {};
-                vm.tailTypes = {};
+                vm.edgeTypes = {};
 
                 vm.loadNames();
                 kitsuneService.getHeads(vm.node).then(_.mountP(vm, "heads")).then(heads => {
                     heads.forEach(function(head) {
-                        kitsuneService.factor({ head: head.head, tail: head.tail }).then(function(types) {
-                            var typeNodes = types.map(type => type.type);
-                            vm.headTypes[head.head] = typeNodes;
-                        });
+                        kitsuneService.factor({ head: head.head, tail: head.tail })
+                            .then(mergeEdgeTypes(vm.edgeTypes));
                     });
                 });
                 kitsuneService.getTails(vm.node).then(_.mountP(vm, "tails")).then(tails => {
                     tails.forEach(tail => {
-                        kitsuneService.factor({ head: tail.head, tail: tail.tail }).then(types => {
-                            let typeNodes = types.map(type => type.type);
-                            vm.tailTypes[tail.tail] = typeNodes;
-                        });
+                        kitsuneService.factor({ head: tail.head, tail: tail.tail })
+                            .then(mergeEdgeTypes(vm.edgeTypes));
                     });
                 });
                 kitsuneService.batch.describeNode(vm.node).then(_.mountP(vm, "nodeDesc")).then(nodeDesc => {
