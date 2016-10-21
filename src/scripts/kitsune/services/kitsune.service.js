@@ -31,7 +31,7 @@
 
             let getNextCall = function() {
                 if(!running) {
-                    nextCall = new $q((resolve, reject) => {
+                    nextCall = new $q((resolve) => {
                         $timeout(() => {
                             let data = _.uniq(nextCallData);
                             nextCallData = [];

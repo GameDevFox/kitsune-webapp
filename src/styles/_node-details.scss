@@ -26,14 +26,21 @@
 
     .panel-body {
         padding: 10px;
+
+        & > .types {
+            .panel-heading { padding: 5px; }
+            .panel-body {
+                padding: 5px;
+                display: flex;
+                & > * {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            node-button .label { display: inline-block; width: 100%; }
+        }
     }
-
-    .types {
-        .panel-heading { padding: 5px; }
-        .panel-body { padding: 5px; }
-    }
-
-
 
     .add-edge { display: flex; align-items: flex-start; }
     .add-assign { display: flex; align-items: flex-start; }

@@ -37,7 +37,10 @@
         <div class="types panel panel-primary">
             <div class="panel-heading">Types</div>
             <div class="panel-body">
-                <node-button ng-repeat="type in vm.nodeDesc" node="type"></node-button>
+                <div ng-repeat="type in vm.nodeDesc">
+                    <node-button node="type"></node-button>
+                    <node-button ng-if="vm.typeLists[type]" node="vm.typeLists[type]"></node-button>
+                </div>
                 <span ng-if="!vm.nodeDesc.length">None</span>
             </div>
         </div>

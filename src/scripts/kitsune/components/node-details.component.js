@@ -88,16 +88,23 @@
                             .then(mergeEdgeTypes(vm.edgeTypes));
                     });
                 });
-                kitsuneService.batch.describeNode(vm.node).then(_.mountP(vm, "nodeDesc")).then(nodeDesc => {
-                    if(nodeDesc.includes("20bfa138672de625230eef7faebe0e10ba6a49d0")) // is-edge
-                        kitsuneService.readEdge(vm.node).then(_.mountP(vm, "edge"));
-                    if(nodeDesc.includes("821f1f34a4998adf0f1efd9b772b57efef71a070")) // is-string
-                        kitsuneService.readString(vm.node).then(_.mountP(vm, "stringValue"));
-                    if(nodeDesc.includes("bd07150e634d5b01eedbe44f28a5068b5a7c845d")) // is-list
-                        kitsuneService.post(vm.node).then(_.mountP(vm, "list"));
-                    if(nodeDesc.includes("c0c7f5b157c778783ce82f431f732f19d7cb3821")) // is-system-file
-                        kitsuneService.post("e6ff3d78ebd8f80c8945afd3499195049609905d", vm.node).then(_.mountP(vm, "systemFileSource"));
-                });
+                kitsuneService.batch.describeNode(vm.node)
+                    .then(_.mountP(vm, "nodeDesc"))
+                    .then(types => {
+                        kitsuneService.systemMap("7806cde5c1d31f49bfc6cd82ffa1ffac8a0c11df", types)
+                            .then(_.mountP(vm, "typeLists"));
+                        return types;
+                    })
+                    .then(nodeDesc => {
+                        if(nodeDesc.includes("20bfa138672de625230eef7faebe0e10ba6a49d0")) // is-edge
+                            kitsuneService.readEdge(vm.node).then(_.mountP(vm, "edge"));
+                        if(nodeDesc.includes("821f1f34a4998adf0f1efd9b772b57efef71a070")) // is-string
+                            kitsuneService.readString(vm.node).then(_.mountP(vm, "stringValue"));
+                        if(nodeDesc.includes("bd07150e634d5b01eedbe44f28a5068b5a7c845d")) // is-list
+                            kitsuneService.post(vm.node).then(_.mountP(vm, "list"));
+                        if(nodeDesc.includes("c0c7f5b157c778783ce82f431f732f19d7cb3821")) // is-system-file
+                            kitsuneService.post("e6ff3d78ebd8f80c8945afd3499195049609905d", vm.node).then(_.mountP(vm, "systemFileSource"));
+                    });
             };
 
             $scope.$watch(() => { vm.node }, vm.load);
