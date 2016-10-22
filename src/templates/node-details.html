@@ -23,15 +23,23 @@
             <span>{{ vm.stringValue }}</span>
         </div>
 
-        <div ng-if="vm.edge">
-            <span class="header">Edge:</span>
-            <span>
-                <node-button class="node-button-small" node="vm.edge.head"></node-button>
-                <i class="fa fa-caret-right" aria-hidden="true"></i>
-                <span class="this">THIS</span>
-                <i class="fa fa-caret-right" aria-hidden="true"></i>
-                <node-button class="node-button-small" node="vm.edge.tail"></node-button>
-            </span>
+        <div class="edge panel panel-primary">
+            <div class="panel-heading">Edge</div>
+            <div class="panel-body">
+                <span ng-if="!vm.edge">None</span>
+                <span ng-if="vm.edge">
+                    <node-button class="node-button-small" node="vm.edge.head"></node-button>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <span class="this">THIS</span>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <node-button class="node-button-small" node="vm.edge.tail"></node-button>
+                </span>
+                <div>
+                    <node-input model="vm.edgeHead" placeholder="Head"></node-input>
+                    <node-input model="vm.edgeTail" placeholder="Tail"></node-input>
+                    <button ng-click="vm.updateEdge()">Update</button>
+                </div>
+            </div>
         </div>
 
         <div class="types panel panel-primary">

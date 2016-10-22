@@ -65,7 +65,10 @@
             post: (funcId, data) => post(funcId, data).then(res => res.data),
 
             mkid: () => mkCall("bf565ae1309f425b0ab00efa2ba541ae03ad22cf"),
+
             readEdge: (edge) => mkCall("25cff8a2afcf560b5451d2482dbf9d9d69649f26", edge),
+            updateOrInsertEdge: (edge) => mkCall("725bf3d81ff4670a523206ba90c193dd536db85d", edge),
+
             assign: (args) => mkCall("7b5e1726ccc3a1c2ac69e441900ba002c26b2f74", args),
             factor: (args) => mkCall("c83cd0ab78a1d57609f9224f851bde6d230711d0", args),
 

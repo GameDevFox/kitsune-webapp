@@ -53,6 +53,16 @@
                 }
             };
 
+            vm.updateEdge = () => {
+                kitsuneService
+                    .updateOrInsertEdge({
+                        id: vm.node,
+                        head: vm.edgeHead,
+                        tail: vm.edgeTail
+                    })
+                    .then(kitsuneService.readEdge)
+                    .then(_.mountP(vm, "edge"));
+            };
             vm.removeEdge = edge => {
                 kitsuneService.removeEdge(edge).then(vm.load);
             };
