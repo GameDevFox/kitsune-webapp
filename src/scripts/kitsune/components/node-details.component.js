@@ -64,10 +64,11 @@
                 kitsuneService.traceChain(vm.node)
                     .then(_.mountP(vm, "traceChain"))
                     .then(traceChain => {
-                        if(!traceChain.length) return;
-
-                        let lastLink = traceChain[traceChain.length-1];
-                        vm.lastLink = lastLink.next;
+                        if(traceChain.length) {
+                            let lastLink = traceChain[traceChain.length - 1];
+                            vm.lastLink = lastLink.next;
+                        } else
+                            vm.lastLink = vm.node;
                     });
             };
             vm.appendLink = (link, value) => {
