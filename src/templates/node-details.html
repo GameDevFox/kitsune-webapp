@@ -122,6 +122,30 @@
             </div>
         </div>
 
+        <div>
+            <div class="chain panel panel-default">
+                <div class="panel-heading">Chain</div>
+                <div class="panel-body">
+                    <div ng-repeat="trace in vm.traceChain">
+                        <button class="append" ng-click="vm.appendLink(trace.link, vm.linkValue)">
+                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                        </button>
+                        <node-button node="trace.value"></node-button>
+                        <button class="remove" ng-click="vm.removeLink(trace.link)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <button class="append" ng-click="vm.appendLink(vm.lastLink, vm.linkValue)">
+                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                        </button>
+                        <node-input model="vm.linkValue" placeholder="Node"></node-input>
+                        <button ng-click="vm.mkid('linkValue')">New</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div ng-if="vm.list">
             <div class="header">List</div>
             <node-button ng-repeat="node in vm.list" class="node-button-small" node="node"></node-button>

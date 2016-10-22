@@ -89,6 +89,9 @@
             addEdge: (head, tail) => mkCall("f7b073eb5ef5680e7ba308eaf289de185f0ec3f7", { head, tail }),
             removeEdge: (edge) => mkCall("c2d807f302ca499c3584a8ccf04fb7a76cf589ad", edge),
 
+            traceChain: (node) => mkCall("b1565419b484bc440da1a81316cec147aec4e1dc", { away: true, node }),
+            spliceChain: (node, deleteCount, insert) => mkCall("f3106f372a55b1e33b3b666d5df0c9e96f06cba1", { away: true, node, deleteCount, insert }),
+
             getDataTime: () => mkCall("d5e195726a6a3650166a6591dc3d7619adaef98d"),
             getSyncTime: () => mkCall("9a3a7c56e96abc04bd92f63cdfc5f31d49f778cd"),
 

@@ -60,6 +60,26 @@
                 kitsuneService.mkid().then(_.mountP(vm, prop));
             };
 
+            let readChain = function() {
+                kitsuneService.traceChain(vm.node)
+                    .then(_.mountP(vm, "traceChain"))
+                    .then(traceChain => {
+                        if(!traceChain.length) return;
+
+                        let lastLink = traceChain[traceChain.length-1];
+                        vm.lastLink = lastLink.next;
+                    });
+            };
+            vm.appendLink = (link, value) => {
+                kitsuneService.spliceChain(link, 0, [value])
+                    .then(readChain)
+                    .then(vm.linkValue = null);
+            };
+            vm.removeLink = (link) => {
+                kitsuneService.spliceChain(link, 1)
+                    .then(readChain);
+            };
+
             function mergeEdgeTypes(edgeTypes) {
                 return function(types) {
                      _(types)
@@ -76,18 +96,23 @@
                 vm.edgeTypes = {};
 
                 vm.loadNames();
+
                 kitsuneService.getHeads(vm.node).then(_.mountP(vm, "heads")).then(heads => {
                     heads.forEach(function(head) {
                         kitsuneService.factor({ head: head.head, tail: head.tail })
                             .then(mergeEdgeTypes(vm.edgeTypes));
                     });
                 });
+
                 kitsuneService.getTails(vm.node).then(_.mountP(vm, "tails")).then(tails => {
                     tails.forEach(tail => {
                         kitsuneService.factor({ head: tail.head, tail: tail.tail })
                             .then(mergeEdgeTypes(vm.edgeTypes));
                     });
                 });
+
+                readChain();
+
                 kitsuneService.batch.describeNode(vm.node)
                     .then(_.mountP(vm, "nodeDesc"))
                     .then(types => {
