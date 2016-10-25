@@ -7,6 +7,8 @@ node-input {
   li .names {
     color: green;
     font-weight: bold;
+
+    & > * { margin-right: 10px; }
   }
 
   li.active .names {
