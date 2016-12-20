@@ -2,5 +2,12 @@
     <span class="label label-default">
         <node-name ng-hide="vm.string" node="vm.node"></node-name>
         <span ng-show="vm.string" class="string">{{ vm.string }}</span>
+
+        <!-- TODO: Turn this into a directive and use on node-input results -->
+        <!-- icons -->
+        <i ng-if="vm.desc.includes('dd350e001cd1498b968bcd04df198c03ea072539')"
+           class="fa fa-star" aria-hidden="true"></i>
+        <i ng-if="vm.desc.includes('bd07150e634d5b01eedbe44f28a5068b5a7c845d')"
+           class="fa fa-list" aria-hidden="true"></i>
     </span>
 </a>
