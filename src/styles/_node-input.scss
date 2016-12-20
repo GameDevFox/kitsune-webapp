@@ -4,11 +4,15 @@ node-input {
     width: 355px;
     font-family: monospace;
   }
+
   li .names {
     color: green;
     font-weight: bold;
 
-    & > * { margin-right: 10px; }
+    & > * {
+      margin-right: 10px;
+    }
+    type-icons { color: black }
   }
 
   li.active .names {
