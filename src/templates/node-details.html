@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="node-details panel panel-primary">
 
     <div class="node-details-heading panel-heading">
         <span>
@@ -13,167 +13,173 @@
     </div>
 
     <div class="panel-body">
-        <div class="name-entry">
-            <input type="text" ng-model="vm.newName" placeholder="New Name"/>
-            <button ng-click="vm.addName()">Add</button>
-        </div>
 
-        <div ng-if="vm.stringValue">
-            <span class="header">String Value:</span>
-            <span>{{ vm.stringValue }}</span>
-        </div>
+        <div class="left">
+            <div class="name-entry">
+                <input type="text" ng-model="vm.newName" placeholder="New Name"/>
+                <button ng-click="vm.addName()">Add</button>
+            </div>
 
-        <div class="edge panel panel-primary">
-            <div class="panel-heading">Edge</div>
-            <div class="panel-body">
-                <span ng-if="!vm.edge">None</span>
-                <span ng-if="vm.edge">
+            <div ng-if="vm.stringValue">
+                <span class="header">String Value:</span>
+                <span>{{ vm.stringValue }}</span>
+            </div>
+
+            <div class="edge panel panel-primary">
+                <div class="panel-heading">Edge</div>
+                <div class="panel-body">
+                    <span ng-if="!vm.edge">None</span>
+                    <span ng-if="vm.edge">
                     <node-button class="node-button-small" node="vm.edge.head"></node-button>
                     <i class="fa fa-caret-right" aria-hidden="true"></i>
                     <span class="this">THIS</span>
                     <i class="fa fa-caret-right" aria-hidden="true"></i>
                     <node-button class="node-button-small" node="vm.edge.tail"></node-button>
                 </span>
-                <div>
-                    <node-input model="vm.edgeHead" placeholder="Head"></node-input>
-                    <node-input model="vm.edgeTail" placeholder="Tail"></node-input>
-                    <button ng-click="vm.updateEdge()">Update</button>
+                    <div>
+                        <node-input model="vm.edgeHead" placeholder="Head"></node-input>
+                        <node-input model="vm.edgeTail" placeholder="Tail"></node-input>
+                        <button ng-click="vm.updateEdge()">Update</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="types panel panel-primary">
-            <div class="panel-heading">Types</div>
-            <div class="panel-body">
-                <div ng-repeat="type in vm.nodeDesc">
-                    <node-button node="type"></node-button>
-                    <node-button ng-if="vm.typeLists[type]" node="vm.typeLists[type]"></node-button>
-                </div>
-                <span ng-if="!vm.nodeDesc.length">None</span>
-            </div>
-        </div>
-
-        <div>
-            <a ng-init="showHeadsAndTails = true" ng-click="showHeadsAndTails = !showHeadsAndTails">
-                {{ showHeadsAndTails ? "Show" : "Hide" }} Heads and Tails
-            </a>
-        </div>
-
-        <div ng-show="showHeadsAndTails" class="heads-and-tails">
-
-            <div class="heads panel panel-default">
-                <div class="panel-heading">Heads</div>
+            <div class="types panel panel-primary">
+                <div class="panel-heading">Types</div>
                 <div class="panel-body">
-                    <div class="list" ng-repeat="edge in vm.heads">
-                        <node-button class="node-button-small" node="edge.head"></node-button>
-                        <span ng-show="vm.showEdges">
+                    <div ng-repeat="type in vm.nodeDesc">
+                        <node-button node="type"></node-button>
+                        <node-button ng-if="vm.typeLists[type]" node="vm.typeLists[type]"></node-button>
+                    </div>
+                    <span ng-if="!vm.nodeDesc.length">None</span>
+                </div>
+            </div>
+
+            <div>
+                <a ng-init="showHeadsAndTails = true" ng-click="showHeadsAndTails = !showHeadsAndTails">
+                    {{ showHeadsAndTails ? "Show" : "Hide" }} Heads and Tails
+                </a>
+            </div>
+
+            <div ng-show="showHeadsAndTails" class="heads-and-tails">
+
+                <div class="heads panel panel-default">
+                    <div class="panel-heading">Heads</div>
+                    <div class="panel-body">
+                        <div class="list" ng-repeat="edge in vm.heads">
+                            <node-button class="node-button-small" node="edge.head"></node-button>
+                            <span ng-show="vm.showEdges">
                             <i class="fa fa-caret-right" aria-hidden="true"></i>
                             <node-button class="node-button-small" node="edge.id"></node-button>
                             <i class="fa fa-caret-right" aria-hidden="true"></i>
                             <span class="this">THIS</span>
                         </span>
-                        <button class="remove" ng-click="vm.removeEdge(edge.id)">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
+                            <button class="remove" ng-click="vm.removeEdge(edge.id)">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
 
-                        <div class="types" ng-if="vm.edgeTypes[edge.id].length">
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            <node-button class="node-button-small" ng-repeat="type in vm.edgeTypes[edge.id]" node="type"></node-button>
+                            <div class="types" ng-if="vm.edgeTypes[edge.id].length">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                <node-button class="node-button-small" ng-repeat="type in vm.edgeTypes[edge.id]" node="type"></node-button>
+                            </div>
+                        </div>
+
+                        <div class="add-edge">
+                            <node-input model="vm.newHead" placeholder="Head"></node-input>
+                            <button ng-click="vm.mkid('newHead')">New</button>
+                            <button ng-click="vm.addHead()">Add</button>
+                        </div>
+
+                        <div class="add-assign">
+                            <node-input model="vm.headType" placeholder="Type"></node-input>
+                            <button ng-click="vm.mkid('headType')">New</button>
                         </div>
                     </div>
-
-                    <div class="add-edge">
-                        <node-input model="vm.newHead" placeholder="Head"></node-input>
-                        <button ng-click="vm.mkid('newHead')">New</button>
-                        <button ng-click="vm.addHead()">Add</button>
-                    </div>
-
-                    <div class="add-assign">
-                        <node-input model="vm.headType" placeholder="Type"></node-input>
-                        <button ng-click="vm.mkid('headType')">New</button>
-                    </div>
                 </div>
-            </div>
 
-            <div class="tails panel panel-default">
-                <div class="panel-heading">Tails</div>
-                <div class="panel-body">
-                    <div class="list" ng-repeat="edge in vm.tails">
+                <div class="tails panel panel-default">
+                    <div class="panel-heading">Tails</div>
+                    <div class="panel-body">
+                        <div class="list" ng-repeat="edge in vm.tails">
                         <span ng-show="vm.showEdges">
                             <span class="this">THIS</span>
                             <i class="fa fa-caret-right" aria-hidden="true"></i>
                             <node-button class="node-button-small" node="edge.id"></node-button>
                             <i class="fa fa-caret-right" aria-hidden="true"></i>
                         </span>
-                        <node-button class="node-button-small" node="edge.tail"></node-button>
-                        <button class="remove" ng-click="vm.removeEdge(edge.id)">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
+                            <node-button class="node-button-small" node="edge.tail"></node-button>
+                            <button class="remove" ng-click="vm.removeEdge(edge.id)">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
 
-                        <div class="types" ng-if="vm.edgeTypes[edge.id].length">
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            <node-button class="node-button-small" ng-repeat="type in vm.edgeTypes[edge.id]" node="type"></node-button>
+                            <div class="types" ng-if="vm.edgeTypes[edge.id].length">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                <node-button class="node-button-small" ng-repeat="type in vm.edgeTypes[edge.id]" node="type"></node-button>
+                            </div>
+                        </div>
+
+                        <div class="add-assign">
+                            <node-input model="vm.tailType" placeholder="Type"></node-input>
+                            <button ng-click="vm.mkid('tailType')">New</button>
+                        </div>
+
+                        <div class="add-edge">
+                            <node-input model="vm.newTail" placeholder="Tail"></node-input>
+                            <button ng-click="vm.mkid('newTail')">New</button>
+                            <button ng-click="vm.addTail()">Add</button>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="add-assign">
-                        <node-input model="vm.tailType" placeholder="Type"></node-input>
-                        <button ng-click="vm.mkid('tailType')">New</button>
-                    </div>
-
-                    <div class="add-edge">
-                        <node-input model="vm.newTail" placeholder="Tail"></node-input>
-                        <button ng-click="vm.mkid('newTail')">New</button>
-                        <button ng-click="vm.addTail()">Add</button>
+            <div>
+                <div class="chain panel panel-default">
+                    <div class="panel-heading">Chain</div>
+                    <div class="panel-body">
+                        <div>
+                            Link
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            Next
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            Value
+                        </div>
+                        <div ng-repeat="trace in vm.traceChain">
+                            <button class="append" ng-click="vm.appendLink(trace.link, vm.linkValue)">
+                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                            </button>
+                            <node-button node="trace.link"></node-button>
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <node-button node="trace.next"></node-button>
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <node-button node="trace.value"></node-button>
+                            <button class="remove" ng-click="vm.removeLink(trace.link)">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <button class="append" ng-click="vm.appendLink(vm.lastLink, vm.linkValue)">
+                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                            </button>
+                            <node-input model="vm.linkValue" placeholder="Node"></node-input>
+                            <button ng-click="vm.mkid('linkValue')">New</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div>
-            <div class="chain panel panel-default">
-                <div class="panel-heading">Chain</div>
-                <div class="panel-body">
-                    <div>
-                        Link
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        Next
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        Value
-                    </div>
-                    <div ng-repeat="trace in vm.traceChain">
-                        <button class="append" ng-click="vm.appendLink(trace.link, vm.linkValue)">
-                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                        </button>
-                        <node-button node="trace.link"></node-button>
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <node-button node="trace.next"></node-button>
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <node-button node="trace.value"></node-button>
-                        <button class="remove" ng-click="vm.removeLink(trace.link)">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div>
-                        <button class="append" ng-click="vm.appendLink(vm.lastLink, vm.linkValue)">
-                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                        </button>
-                        <node-input model="vm.linkValue" placeholder="Node"></node-input>
-                        <button ng-click="vm.mkid('linkValue')">New</button>
-                    </div>
-                </div>
+            <div ng-if="vm.systemFileSource">
+                <div class="header">System File Source</div>
+                <pre>{{ vm.systemFileSource }}</pre>
             </div>
         </div>
 
-        <div ng-if="vm.list">
-            <div class="header">List</div>
-            <node-button ng-repeat="node in vm.list" class="node-button-small" node="node"></node-button>
+        <div ng-if="vm.list" class="right">
+            <div class="list">
+                <div class="header">List</div>
+                <node-button ng-repeat="node in vm.list" class="node-button-small" node="node"></node-button>
+            </div>
         </div>
 
-        <div ng-if="vm.systemFileSource">
-            <div class="header">System File Source</div>
-            <pre>{{ vm.systemFileSource }}</pre>
-        </div>
     </div>
 
 </div>

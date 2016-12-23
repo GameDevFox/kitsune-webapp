@@ -2,7 +2,16 @@
 
     .edge.panel node-input .names { display: none; }
 
-    & > .panel {
+    .left { flex-grow: 1; }
+
+    .right {
+        flex-shrink: 1;
+        margin-left: 10px;
+
+        .list node-button { display: block; }
+    }
+
+    .node-details.panel {
 
         & > .panel-heading  {
             padding: 10px;
@@ -22,14 +31,16 @@
             }
         }
 
-        & > .panel-body > * { margin-bottom: 10px; }
-        & > .panel-body > *:last-child { margin-bottom: 0px; }
+        & > .panel-body { display: flex; }
+        & > .panel-body > * > * { margin-bottom: 10px; }
+        & > .panel-body > * > *:last-child { margin-bottom: 0px; }
     }
 
     .panel-body {
+
         padding: 10px;
 
-        & > .types {
+        .types.panel {
             .panel-heading { padding: 5px; }
             .panel-body {
                 padding: 5px;
