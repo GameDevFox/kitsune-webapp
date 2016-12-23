@@ -1,5 +1,7 @@
 .main node-details {
 
+    .edge.panel node-input .names { display: none; }
+
     & > .panel {
 
         & > .panel-heading  {
