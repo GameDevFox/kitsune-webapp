@@ -85,6 +85,7 @@
             makeString: (string) => mkCall("4e63843a9bee61351b80fac49f4182bd582907b4", string),
             searchStrings: (like) => mkCall("debb03595c98dabf804339d4b4e8510bb14b56f9", like),
             readString: (node) => mkCall("08f8db63b1843f7dea016e488bd547555f345c59", node),
+            listStrings: () => mkCall("8b1f2122a8c08b5c1314b3f42a9f462e35db05f7"),
 
             getHeads: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { tail: node }),
             getTails: (node) => mkCall("a1e815356dceab7fded042f3032925489407c93e", { head: node }),
