@@ -45,9 +45,13 @@
             .panel-body {
                 padding: 5px;
                 display: flex;
+
                 & > * {
                     display: flex;
                     flex-direction: column;
+                    margin-right: 5px;
+
+                    node-button a { width: 100% }
                 }
             }
 
@@ -97,9 +101,7 @@
         }
     }
 
-    .tails {
-        margin-right: 0px;
-    }
+    .tails { margin-right: 0px; }
 
     node-name { font-weight: bold; }
 }
